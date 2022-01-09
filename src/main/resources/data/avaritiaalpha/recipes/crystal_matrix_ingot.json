@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "xnx",
+    "xnx"
+  ],
+  "key": {
+    "x": {
+      "item": "avaritiaalpha:diamondlattice"
+    },
+    "n": {
+      "item": "minecraft:nether_star"
+    }
+  },
+  "result": {
+    "item": "avaritiaalpha:crystal_matrix_ingot"
+  }
+}
