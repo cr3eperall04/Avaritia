@@ -2,14 +2,21 @@ package com.cr3eperall.avaritiaalpha;
 
 import com.cr3eperall.avaritiaalpha.blocks.CrystalMatrixBlock;
 import com.cr3eperall.avaritiaalpha.blocks.ModBlocks;
+import com.cr3eperall.avaritiaalpha.blocks.NeutronCollector;
+import com.cr3eperall.avaritiaalpha.blocks.gui.NeutronCollectorContainer;
+import com.cr3eperall.avaritiaalpha.blocks.tiles.NeutronCollectorTile;
+import com.cr3eperall.avaritiaalpha.items.CrystalMatrixIngot;
+import com.cr3eperall.avaritiaalpha.items.DiamondLattice;
 import com.cr3eperall.avaritiaalpha.setup.ClientProxy;
 import com.cr3eperall.avaritiaalpha.setup.IProxy;
+import com.cr3eperall.avaritiaalpha.setup.ModSetup;
 import com.cr3eperall.avaritiaalpha.setup.ServerProxy;
 import net.minecraft.block.Block;
-import net.minecraft.block.Blocks;
+import net.minecraft.inventory.container.ContainerType;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
-import net.minecraftforge.common.MinecraftForge;
+import net.minecraft.tileentity.TileEntityType;
+import net.minecraftforge.common.extensions.IForgeContainerType;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.DistExecutor;
@@ -26,12 +33,16 @@ import org.apache.logging.log4j.Logger;
 
 import java.util.stream.Collectors;
 
+
 // The value here should match an entry in the META-INF/mods.toml file
-@Mod("avaritiaalpha")
+@Mod(AvaritiaAlpha.MOD_ID)
 public class AvaritiaAlpha {
 
     public static IProxy proxy = DistExecutor.runForDist(() -> () -> new ClientProxy(), () -> () -> new ServerProxy());
 
+    public static final String MOD_ID="avaritiaalpha";
+
+    public static ModSetup setup = new ModSetup();
     // Directly reference a log4j logger.
     private static final Logger LOGGER = LogManager.getLogger();
 
@@ -57,9 +68,8 @@ public class AvaritiaAlpha {
     }
 
     private void setup(final FMLCommonSetupEvent event) {
-        // some preinit code
-        LOGGER.info("HELLO FROM PREINIT");
-        LOGGER.info("DIRT BLOCK >> {}", Blocks.DIRT.getRegistryName());
+        setup.init();
+        proxy.init();
     }
 
     // You can use EventBusSubscriber to automatically subscribe events on the contained class (this is subscribing to the MOD
@@ -69,10 +79,26 @@ public class AvaritiaAlpha {
         @SubscribeEvent
         public static void onBlocksRegistry(final RegistryEvent.Register<Block> blockRegistryEvent) {
             blockRegistryEvent.getRegistry().register(new CrystalMatrixBlock());
+            blockRegistryEvent.getRegistry().register(new NeutronCollector());
         }
         @SubscribeEvent
-        public static void oItemsRegistry(final RegistryEvent.Register<Item> itemRegistryEvent) {
-            itemRegistryEvent.getRegistry().register(new BlockItem(ModBlocks.CRYSTALMATRIXBLOCK, new Item.Properties()).setRegistryName("crystalmatrixblock"));
+        public static void onItemsRegistry(final RegistryEvent.Register<Item> itemRegistryEvent) {
+            itemRegistryEvent.getRegistry().register(new BlockItem(ModBlocks.CRYSTALMATRIXBLOCK, new Item.Properties().group(setup.itemGroup)).setRegistryName("crystal_matrix_block"));
+            itemRegistryEvent.getRegistry().register(new BlockItem(ModBlocks.NEUTRONCOLLECTOR, new Item.Properties().group(setup.itemGroup)).setRegistryName("neutron_collector"));
+            itemRegistryEvent.getRegistry().register(new DiamondLattice());
+            itemRegistryEvent.getRegistry().register(new CrystalMatrixIngot());
+        }
+
+        @SubscribeEvent
+        public static void onTileEntityRegistry(final RegistryEvent.Register<TileEntityType<?>> tileEntityRegistryEvent) {
+            tileEntityRegistryEvent.getRegistry().register(TileEntityType.Builder.create(NeutronCollectorTile::new,ModBlocks.NEUTRONCOLLECTOR).build(null).setRegistryName("neutron_collector"));
+        }
+
+        @SubscribeEvent
+        public static void onContainerRegistry(final RegistryEvent.Register<ContainerType<?>> containerRegistryEvent) {
+            containerRegistryEvent.getRegistry().register(IForgeContainerType.create((windowId, inv, data) -> {
+                return new NeutronCollectorContainer(windowId, proxy.getClientWorld(), data.readBlockPos(),inv, proxy.getClientPlayer());
+            }).setRegistryName("neutron_collector"));
         }
     }
 

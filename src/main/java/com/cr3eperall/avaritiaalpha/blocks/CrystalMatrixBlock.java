@@ -13,6 +13,6 @@ public class CrystalMatrixBlock extends Block {
                 .lightValue(5)
                 .harvestTool(ToolType.PICKAXE)
         );
-        setRegistryName("crystalmatrixblock");
+        setRegistryName("crystal_matrix_block");
     }
 }
