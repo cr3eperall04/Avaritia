@@ -2,15 +2,12 @@
   "type": "minecraft:crafting_shaped",
   "pattern": [
     "xxx",
-    "x#x",
+    "xxx",
     "xxx"
   ],
   "key": {
     "x": {
-      "item": "minecraft:diamond"
-    },
-    "#": {
-      "item": "minecraft:prismarine"
+      "item": "avaritiaalpha:crystal_matrix_ingot"
     }
   },
   "result": {

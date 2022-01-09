@@ -1,0 +1,12 @@
+{
+  "parent": "block/cube",
+    "textures": {
+      "particle": "avaritiaalpha:block/neutron_collector/top",
+      "down": "avaritiaalpha:block/neutron_collector/side",
+      "up": "avaritiaalpha:block/neutron_collector/top",
+      "north": "avaritiaalpha:block/neutron_collector/inactive",
+      "east": "avaritiaalpha:block/neutron_collector/side",
+      "south": "avaritiaalpha:block/neutron_collector/side",
+      "west": "avaritiaalpha:block/neutron_collector/side"
+    }
+}
