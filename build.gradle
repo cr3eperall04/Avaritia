@@ -1,201 +1,148 @@
 buildscript {
     repositories {
-        jcenter()
+        maven { url = 'https://maven.minecraftforge.net/' }
         mavenCentral()
-        maven {
-            name = "forge"
-            url = "http://files.minecraftforge.net/maven"
-        }
-        maven {
-            name = "sonatype"
-            url = "https://oss.sonatype.org/content/repositories/snapshots/"
-        }
     }
     dependencies {
-        classpath "net.minecraftforge.gradle:ForgeGradle:2.3-SNAPSHOT"
+        classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '3.+', changing: true
     }
 }
-apply plugin: 'net.minecraftforge.gradle.forge'
-apply plugin: 'maven'
+apply plugin: 'net.minecraftforge.gradle'
+// Only edit below this line, the above code adds and enables the necessary things for Forge to be setup.
+apply plugin: 'eclipse'
+apply plugin: 'maven-publish'
 
+version = '1.0'
+group = 'com.cr3eperall.avaritiaalpha' // http://maven.apache.org/guides/mini/guide-naming-conventions.html
+archivesBaseName = 'avaritiaalpha'
 
+sourceCompatibility = targetCompatibility = compileJava.sourceCompatibility = compileJava.targetCompatibility = '1.8' // Need this here so eclipse task generates correctly.
 
+minecraft {
+    // The mappings can be changed at any time, and must be in the following format.
+    // snapshot_YYYYMMDD   Snapshot are built nightly.
+    // stable_#            Stables are built at the discretion of the MCP team.
+    // Use non-default mappings at your own risk. they may not always work.
+    // Simply re-run your setup task after changing the mappings to update your workspace.
+    mappings channel: 'snapshot', version: '20190719-1.14.3'
+    // makeObfSourceJar = false // an Srg named sources jar is made by default. uncomment this to disable.
+    
+    // accessTransformer = file('src/main/resources/META-INF/accesstransformer.cfg')
 
-group = "morph.avaritia" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
-archivesBaseName = "Avaritia"
+    // Default run configurations.
+    // These can be tweaked, removed, or duplicated as needed.
+    runs {
+        client {
+            workingDirectory project.file('run')
 
-// Define properties file
-ext.configFile = file "build.properties"
+            // Recommended logging data for a userdev environment
+            property 'forge.logging.markers', 'SCAN,REGISTRIES,REGISTRYDUMP'
 
-configFile.withReader {
-    // Load config.  It shall from now be referenced as simply config or project.config
-    def prop = new Properties()
-    prop.load(it)
-    project.ext.config = new ConfigSlurper().parse prop
-}
+            // Recommended logging level for the console
+            property 'forge.logging.console.level', 'debug'
 
-repositories {
-	maven {
-		name 'CB Maven'
-		url "http://chickenbones.net/maven/"
-	}
-    maven {
-        name = "JEI"
-        url = "http://dvs1.progwml6.com/files/maven"
+            mods {
+                examplemod {
+                    source sourceSets.main
+                }
+            }
+        }
+
+        server {
+            workingDirectory project.file('run')
+
+            // Recommended logging data for a userdev environment
+            property 'forge.logging.markers', 'SCAN,REGISTRIES,REGISTRYDUMP'
+
+            // Recommended logging level for the console
+            property 'forge.logging.console.level', 'debug'
+
+            mods {
+                examplemod {
+                    source sourceSets.main
+                }
+            }
+        }
+
+        data {
+            workingDirectory project.file('run')
+
+            // Recommended logging data for a userdev environment
+            property 'forge.logging.markers', 'SCAN,REGISTRIES,REGISTRYDUMP'
+
+            // Recommended logging level for the console
+            property 'forge.logging.console.level', 'debug'
+
+            args '--mod', 'examplemod', '--all', '--output', file('src/generated/resources/')
+
+            mods {
+                examplemod {
+                    source sourceSets.main
+                }
+            }
+        }
     }
-	maven {
-		name = "Jared"
-		url = "http://maven.blamejared.com/"
-	}
 }
 
 dependencies {
-    /*HARD DEPENDENCIES*/
-    compile "codechicken:CodeChickenLib:${config.mc_version}-${config.ccl_version}:deobf"
+    // Specify the version of Minecraft to use, If this is any group other then 'net.minecraft' it is assumed
+    // that the dep is a ForgeGradle 'patcher' dependency. And it's patches will be applied.
+    // The userdev artifact is a special name and will get all sorts of transformations applied to it.
+    minecraft 'net.minecraftforge:forge:1.14.4-28.2.26'
 
-    /*SOFT DEPENDENCIES*/
-    compile "mezz.jei:jei_${config.mc_version}:${config.jei_version}"
-	compile "CraftTweaker2:CraftTweaker2-API:${config.craft_tweaker_version}"
-	compile "CraftTweaker2:CraftTweaker2-MC1120-Main:1.12-${config.craft_tweaker_version}"
+    // You may put jars on which you depend on in ./libs or you may define them like so..
+    // compile "some.group:artifact:version:classifier"
+    // compile "some.group:artifact:version"
 
-	/*OTHERS*/
-    //compile "com.wayoftime.bloodmagic:BloodMagic:${config.mc_version}-${config.blood_magic_version}"
-    //compile "slimeknights:TConstruct:${config.mc_version}-${config.tinkers_version}"
-    //compile "slimeknights.mantle:Mantle:${config.mc_version}-${config.mantle_version}"
-    //compile "mcjty.theoneprobe:TheOneProbe:1.1x-${config.top_version}"
-    //compile "net.sengir.forestry:forestry_${config.mc_version}:${config.forestry_version}"
-    //compile "com.brandon3055.draconicevolution:Draconic-Evolution:${config.mc_version}-${config.de_version}:deobf"
+    // Real examples
+    // compile 'com.mod-buildcraft:buildcraft:6.0.8:dev'  // adds buildcraft to the dev env
+    // compile 'com.googlecode.efficient-java-matrix-library:ejml:0.24' // adds ejml to the dev env
+
+    // The 'provided' configuration is for optional dependencies that exist at compile-time but might not at runtime.
+    // provided 'com.mod-buildcraft:buildcraft:6.0.8:dev'
+
+    // These dependencies get remapped to your current MCP mappings
+    // deobf 'com.mod-buildcraft:buildcraft:6.0.8:dev'
+
+    // For more info...
+    // http://www.gradle.org/docs/current/userguide/artifact_dependencies_tutorial.html
+    // http://www.gradle.org/docs/current/userguide/dependency_management.html
+
 }
 
-targetCompatibility = "1.8"
-sourceCompatibility = "1.8"
-
-version = "${project.config.mod_version}." + (System.getenv("BUILD_NUMBER") ?: "1")
-
-println config.mc_version + "-" + config.forge_version
-// Setup the forge minecraft plugin data. Specify the preferred forge/minecraft version here
-minecraft {
-    version = config.mc_version + "-" + config.forge_version
-    mappings = config.mappings
-	replace '${mod_version}', project.config.mod_version
-    runDir = "run"
-    makeObfSourceJar = false
-}
-
-processResources {
-    inputs.property "version", project.version
-    inputs.property "mc_version", project.config.mc_version
-
-    from(sourceSets.main.resources.srcDirs) {
-        include 'mcmod.info'
-        expand 'version': project.version, 'mc_version': project.config.mc_version
-    }
-    rename '(.+_at.cfg)', 'META-INF/$1'
-}
-
-version = "${project.minecraft.version}-${project.version}"
-def commonManifest = {
-    attributes 'FMLAT': 'avaritia_at.cfg'
-}
-
+// Example for how to get properties into the manifest for reading by the runtime..
 jar {
-    classifier = 'universal'
-    manifest commonManifest
+    manifest {
+        attributes([
+            "Specification-Title": "avaritiaalpha",
+            "Specification-Vendor": "avaritiaalphasareus",
+            "Specification-Version": "1", // We are version 1 of ourselves
+            "Implementation-Title": project.name,
+            "Implementation-Version": "${version}",
+            "Implementation-Vendor" :"avaritiaalphasareus",
+            "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ")
+        ])
+    }
 }
 
-task deobfJar(type: Jar) {
-    from sourceSets.main.output
-    classifier = 'deobf'
-    manifest commonManifest
+// Example configuration to allow publishing using the maven-publish task
+// we define a custom artifact that is sourced from the reobfJar output task
+// and then declare that to be published
+// Note you'll need to add a repository here
+def reobfFile = file("$buildDir/reobfJar/output.jar")
+def reobfArtifact = artifacts.add('default', reobfFile) {
+    type 'jar'
+    builtBy 'reobfJar'
 }
-
-task srcJar(type: Jar) {
-    from sourceSets.main.allSource
-    classifier = 'sources'
-    manifest commonManifest
-}
-
-// Tell the artifact system about our extra jars
-artifacts {
-    archives deobfJar
-    archives srcJar
-}
-
-// Configure an upload task.
-uploadArchives {
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            artifact reobfArtifact
+        }
+    }
     repositories {
-        mavenDeployer {
-            if (project.hasProperty("local_maven")) {
-                repository(url: "file://${local_maven}")
-                pom {
-                    groupId = project.group
-                    // Force the maven upload to use the <mcversion>-<version> syntax preferred at files
-                    artifactId = project.archivesBaseName
-                    project {
-                        name project.archivesBaseName
-                        packaging 'jar'
-                        description 'Avaritia'
-                        url 'https://github.com/Morpheus1101/Avaritia'
-
-                        scm {
-                            url 'https://github.com/Morpheus1101/Avaritia'
-                            connection 'scm:git:git://github.com/Morpheus1101/Avaritia.git'
-                            developerConnection 'scm:git:git@github.com:Morpheus1101/Avaritia.git'
-                        }
-
-                        issueManagement {
-                            system 'github'
-                            url 'https://github.com/Morpheus1101/Avaritia/issues'
-                        }
-
-                        licenses {
-                            license {
-                                name 'MIT'
-                                url 'https://opensource.org/licenses/MIT'
-                                distribution 'repo'
-                            }
-                        }
-
-                        developers {
-                            developer {
-                                id 'Morpheus1101'
-                                name 'Morpheus1101'
-                                roles {
-                                    role 'developer'
-                                }
-                            }
-                            developer {
-                                id 'covers1624'
-                                name 'covers1624'
-                                roles {
-                                    role 'developer'
-                                }
-                            }
-                            developer {
-                                id 'brandon3055'
-                                name 'brandon3055'
-                                roles {
-                                    role 'developer'
-                                }
-                            }
-                            developer {
-                                id 'SpitefulFox'
-                                name 'SpitefulFox'
-                                roles {
-                                    role 'Retired-Developer'
-                                }
-                            }
-                            developer {
-                                id 'TTFTCUTS'
-                                name 'TTFTCUTS'
-                                roles {
-                                    role 'Retired-Developer'
-                                }
-                            }
-                        }
-                    }
-                }
-            }
+        maven {
+            url "file:///${project.projectDir}/mcmodsrepo"
         }
     }
 }

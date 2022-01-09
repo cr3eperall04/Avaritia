@@ -1,26 +1,25 @@
-# exclude all
-/*
+# eclipse
+bin
+*.launch
+.settings
+.metadata
+.classpath
+.project
 
-# Include important folders
+# idea
+out
+*.ipr
+*.iws
+*.iml
+.idea
 
-# Gradle stuff
-!gradle/
-!gradlew
-!gradlew.bat
-!build.gradle
-!build.properties
-!settings.gradle
+# gradle
+build
+.gradle
 
-# Other Files.
-!LICENSE
-!README.md
-!todo.txt
+# other
+eclipse
+run
 
-# Include git important files
-!.gitmodules
-!.gitignore
-
-# Include Important Folders
-!src/
-!libs/
-!archive
+# Files from Forge MDK
+forge*changelog.txt
