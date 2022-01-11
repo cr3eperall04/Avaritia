@@ -1,8 +1,13 @@
 {
   "variants": {
-    "facing=north": { "model": "avaritiaalpha:block/neutron_collector" },
-    "facing=south": { "model": "avaritiaalpha:block/neutron_collector", "y": 180},
-    "facing=west": { "model": "avaritiaalpha:block/neutron_collector", "y": 270},
-    "facing=east": { "model": "avaritiaalpha:block/neutron_collector", "y": 90}
+    "facing=north,powered=false": { "model": "avaritiaalpha:block/neutron_collector" },
+    "facing=south,powered=false": { "model": "avaritiaalpha:block/neutron_collector", "y": 180},
+    "facing=west,powered=false": { "model": "avaritiaalpha:block/neutron_collector", "y": 270},
+    "facing=east,powered=false": { "model": "avaritiaalpha:block/neutron_collector", "y": 90},
+
+    "facing=north,powered=true": { "model": "avaritiaalpha:block/neutron_collector_powered" },
+    "facing=south,powered=true": { "model": "avaritiaalpha:block/neutron_collector_powered", "y": 180},
+    "facing=west,powered=true": { "model": "avaritiaalpha:block/neutron_collector_powered", "y": 270},
+    "facing=east,powered=true": { "model": "avaritiaalpha:block/neutron_collector_powered", "y": 90}
   }
 }

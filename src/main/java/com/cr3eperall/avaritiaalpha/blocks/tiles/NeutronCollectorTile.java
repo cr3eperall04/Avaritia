@@ -2,6 +2,7 @@ package com.cr3eperall.avaritiaalpha.blocks.tiles;
 
 import com.cr3eperall.avaritiaalpha.blocks.ModBlocks;
 import com.cr3eperall.avaritiaalpha.blocks.gui.NeutronCollectorContainer;
+import com.cr3eperall.avaritiaalpha.config.Config;
 import com.cr3eperall.avaritiaalpha.items.ModItems;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
@@ -9,6 +10,7 @@ import net.minecraft.inventory.container.Container;
 import net.minecraft.inventory.container.INamedContainerProvider;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.state.properties.BlockStateProperties;
 import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.Direction;
@@ -29,6 +31,8 @@ public class NeutronCollectorTile extends TileEntity implements ITickableTileEnt
     }
     LazyOptional<ItemStackHandler> itemHandler=LazyOptional.of(()-> createItemHandler());
 
+    private int progress=0;
+
     private ItemStackHandler createItemHandler(){
         return new ItemStackHandler(1){
                 @Override
@@ -46,12 +50,24 @@ public class NeutronCollectorTile extends TileEntity implements ITickableTileEnt
                 }
             };
     }
+
     @Override
     public void tick() {
-
+        itemHandler.ifPresent(h-> {
+            int q = h.getStackInSlot(0).getCount();
+            if (progress >= Config.NEUTRONCOLLECTOR_RATE.get() && q < 64) {
+                h.insertItem(0,new ItemStack(() -> (ModItems.DIAMONDLATTICE)),false);
+                progress=0;
+            }else{
+                if (q<64) {
+                    progress++;
+                }
+            }
+            if (getBlockState().get(BlockStateProperties.POWERED) == (q==64)){
+                world.setBlockState(pos, getBlockState().with(BlockStateProperties.POWERED, q<64));
+            }
+        });
     }
-
-
 
     @Override
     public void read(CompoundNBT compound) {
