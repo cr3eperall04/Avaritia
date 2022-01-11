@@ -40,13 +40,16 @@ public class NeutronCollector extends Block {
     @Override
     public void onBlockPlacedBy(World worldIn, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack stack) {
         if (placer!=null){
-            worldIn.setBlockState(pos, state.with(BlockStateProperties.FACING, RotationUtils.getPlacedRotationHorizontal(placer)),2);
+            worldIn.setBlockState(pos, state.with(BlockStateProperties.FACING, RotationUtils.getPlacedRotationHorizontal(placer)).with(BlockStateProperties.POWERED,true),2);
         }
     }
 
-
     @Override
     public void onReplaced(BlockState state, World worldIn, BlockPos pos, BlockState newState, boolean isMoving) {
+        if (state.getBlock() == newState.getBlock()){
+            super.onReplaced(state,worldIn,pos,newState,isMoving);
+            return;
+        }
         worldIn.getTileEntity(pos).getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY).ifPresent(h->{
             ItemStack stack=((ItemStackHandler)h).getStackInSlot(0);
             ItemEntity drop;
@@ -73,7 +76,7 @@ public class NeutronCollector extends Block {
 
     @Override
     protected void fillStateContainer(StateContainer.Builder<Block, BlockState> builder) {
-        builder.add(BlockStateProperties.FACING).add(BlockStateProperties.LIT);
+        builder.add(BlockStateProperties.FACING).add(BlockStateProperties.POWERED);
     }
 
     @Override
