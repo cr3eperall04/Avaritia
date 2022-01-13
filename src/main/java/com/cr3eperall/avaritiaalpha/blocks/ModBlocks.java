@@ -18,4 +18,7 @@ public class ModBlocks {
 
     @ObjectHolder("avaritiaalpha:neutron_collector")
     public static ContainerType<NeutronCollectorContainer> NEUTRONCOLLECTOR_CONTAINER;
+
+    @ObjectHolder("avaritiaalpha:neutronium_block")
+    public static NeutroniumBlock NEUTRONIUMBLOCK;
 }
