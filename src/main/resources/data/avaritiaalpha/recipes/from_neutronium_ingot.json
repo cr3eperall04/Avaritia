@@ -1,0 +1,10 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {"item": "avaritiaalpha:neutronium_ingot"}
+  ],
+  "result": {
+    "item": "avaritiaalpha:neutronium_nugget",
+    "count" : 9
+  }
+}

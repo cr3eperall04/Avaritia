@@ -3,11 +3,11 @@ package com.cr3eperall.avaritiaalpha;
 import com.cr3eperall.avaritiaalpha.blocks.CrystalMatrixBlock;
 import com.cr3eperall.avaritiaalpha.blocks.ModBlocks;
 import com.cr3eperall.avaritiaalpha.blocks.NeutronCollector;
+import com.cr3eperall.avaritiaalpha.blocks.NeutroniumBlock;
 import com.cr3eperall.avaritiaalpha.blocks.gui.NeutronCollectorContainer;
 import com.cr3eperall.avaritiaalpha.blocks.tiles.NeutronCollectorTile;
 import com.cr3eperall.avaritiaalpha.config.Config;
-import com.cr3eperall.avaritiaalpha.items.CrystalMatrixIngot;
-import com.cr3eperall.avaritiaalpha.items.DiamondLattice;
+import com.cr3eperall.avaritiaalpha.items.*;
 import com.cr3eperall.avaritiaalpha.setup.ClientProxy;
 import com.cr3eperall.avaritiaalpha.setup.IProxy;
 import com.cr3eperall.avaritiaalpha.setup.ModSetup;
@@ -32,6 +32,7 @@ import net.minecraftforge.fml.event.lifecycle.InterModProcessEvent;
 import net.minecraftforge.fml.event.server.FMLServerStartingEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.fml.loading.FMLPaths;
+import net.minecraftforge.registries.IForgeRegistry;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -85,15 +86,23 @@ public class AvaritiaAlpha {
     public static class RegistryEvents {
         @SubscribeEvent
         public static void onBlocksRegistry(final RegistryEvent.Register<Block> blockRegistryEvent) {
-            blockRegistryEvent.getRegistry().register(new CrystalMatrixBlock());
-            blockRegistryEvent.getRegistry().register(new NeutronCollector());
+            IForgeRegistry registry=blockRegistryEvent.getRegistry();
+            registry.register(new CrystalMatrixBlock());
+            registry.register(new NeutronCollector());
+            registry.register(new NeutroniumBlock());
+
         }
         @SubscribeEvent
         public static void onItemsRegistry(final RegistryEvent.Register<Item> itemRegistryEvent) {
-            itemRegistryEvent.getRegistry().register(new BlockItem(ModBlocks.CRYSTALMATRIXBLOCK, new Item.Properties().group(setup.itemGroup)).setRegistryName("crystal_matrix_block"));
-            itemRegistryEvent.getRegistry().register(new BlockItem(ModBlocks.NEUTRONCOLLECTOR, new Item.Properties().group(setup.itemGroup)).setRegistryName("neutron_collector"));
-            itemRegistryEvent.getRegistry().register(new DiamondLattice());
-            itemRegistryEvent.getRegistry().register(new CrystalMatrixIngot());
+            IForgeRegistry registry=itemRegistryEvent.getRegistry();
+            registry.register(new BlockItem(ModBlocks.CRYSTALMATRIXBLOCK, new Item.Properties().group(setup.itemGroup)).setRegistryName("crystal_matrix_block"));
+            registry.register(new BlockItem(ModBlocks.NEUTRONCOLLECTOR, new Item.Properties().group(setup.itemGroup)).setRegistryName("neutron_collector"));
+            registry.register(new BlockItem(ModBlocks.NEUTRONIUMBLOCK,new Item.Properties().group(setup.itemGroup)).setRegistryName("neutronium_block"));
+            registry.register(new DiamondLattice());
+            registry.register(new CrystalMatrixIngot());
+            registry.register(new NeutroniumPile());
+            registry.register(new NeutroniumNugget());
+            registry.register(new NeutroniumIngot());
         }
 
         @SubscribeEvent

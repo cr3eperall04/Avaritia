@@ -1,6 +1,7 @@
 package com.cr3eperall.avaritiaalpha.blocks.gui;
 
 import com.cr3eperall.avaritiaalpha.blocks.ModBlocks;
+import com.cr3eperall.avaritiaalpha.blocks.tiles.NeutronCollectorTile;
 import com.cr3eperall.avaritiaalpha.items.ModItems;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
@@ -32,6 +33,10 @@ public class NeutronCollectorContainer extends Container {
         this.playerEntity = player;
         this.playerInventory=new InvWrapper(playerInventory);
         layoutPlayerInventorySlots(8, 84);
+    }
+
+    public int getProgress(){
+        return ((NeutronCollectorTile)tileEntity).progress;
     }
 
     @Override

@@ -8,4 +8,13 @@ public class ModItems {
 
     @ObjectHolder("avaritiaalpha:crystal_matrix_ingot")
     public static CrystalMatrixIngot CRYSTALMATRIXINGOT;
+
+    @ObjectHolder("avaritiaalpha:neutronium_ingot")
+    public static NeutroniumIngot NEUTRONIUMINGOT;
+
+    @ObjectHolder("avaritiaalpha:neutronium_nugget")
+    public static NeutroniumNugget NEUTRONIUMNUGGET;
+
+    @ObjectHolder("avaritiaalpha:neutronium_pile")
+    public static NeutroniumPile NEUTRONIUMPILE;
 }

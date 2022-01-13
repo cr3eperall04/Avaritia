@@ -1,6 +1,8 @@
 package com.cr3eperall.avaritiaalpha.blocks.gui;
 
+import codechicken.lib.math.MathHelper;
 import com.cr3eperall.avaritiaalpha.AvaritiaAlpha;
+import com.cr3eperall.avaritiaalpha.config.Config;
 import com.mojang.blaze3d.platform.GlStateManager;
 import net.minecraft.client.gui.screen.inventory.ContainerScreen;
 import net.minecraft.client.resources.I18n;
@@ -26,6 +28,9 @@ public class NeutronCollectorScreen extends ContainerScreen<NeutronCollectorCont
     @Override
     protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY) {
         this.font.drawString(I18n.format(this.title.getFormattedText()), 8.0F,6.0F,0x404040);
+        float progress=getContainer().getProgress()/ (float)Config.NEUTRONCOLLECTOR_RATE.get()*100;
+        String str_progress="Progress: " + MathHelper.round(progress, 10) + "%";
+        this.font.drawString(str_progress,xSize / 2F - font.getStringWidth(str_progress) / 2F, 60, 0x404040);
     }
 
     @Override

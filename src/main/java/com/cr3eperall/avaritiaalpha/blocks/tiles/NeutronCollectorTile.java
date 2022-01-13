@@ -31,19 +31,19 @@ public class NeutronCollectorTile extends TileEntity implements ITickableTileEnt
     }
     LazyOptional<ItemStackHandler> itemHandler=LazyOptional.of(()-> createItemHandler());
 
-    private int progress=0;
+    public int progress=0;
 
     private ItemStackHandler createItemHandler(){
         return new ItemStackHandler(1){
                 @Override
                 public boolean isItemValid(int slot, @Nonnull ItemStack stack) {
-                    return stack.getItem() == ModItems.DIAMONDLATTICE;
+                    return stack.getItem() == ModItems.NEUTRONIUMPILE;
                 }
 
                 @Nonnull
                 @Override
                 public ItemStack insertItem(int slot, @Nonnull ItemStack stack, boolean simulate) {
-                    if (stack.getItem() == ModItems.DIAMONDLATTICE) {
+                    if (stack.getItem() == ModItems.NEUTRONIUMPILE) {
                         return super.insertItem(slot, stack, simulate);
                     }
                     return stack;
@@ -51,13 +51,16 @@ public class NeutronCollectorTile extends TileEntity implements ITickableTileEnt
             };
     }
 
+    
+
     @Override
     public void tick() {
         itemHandler.ifPresent(h-> {
             int q = h.getStackInSlot(0).getCount();
-            if (progress >= Config.NEUTRONCOLLECTOR_RATE.get() && q < 64) {
-                h.insertItem(0,new ItemStack(() -> (ModItems.DIAMONDLATTICE)),false);
+            if (progress > Config.NEUTRONCOLLECTOR_RATE.get() && q < 64) {
+                h.insertItem(0,new ItemStack(() -> (ModItems.NEUTRONIUMPILE)),false);
                 progress=0;
+                markDirty();
             }else{
                 if (q<64) {
                     progress++;
@@ -66,6 +69,7 @@ public class NeutronCollectorTile extends TileEntity implements ITickableTileEnt
             if (getBlockState().get(BlockStateProperties.POWERED) == (q==64)){
                 world.setBlockState(pos, getBlockState().with(BlockStateProperties.POWERED, q<64));
             }
+
         });
     }
 

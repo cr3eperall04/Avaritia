@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "xxx",
+    "xxx",
+    "xxx"
+  ],
+  "key": {
+    "x": {
+      "item": "avaritiaalpha:neutronium_pile"
+    }
+  },
+  "result": {
+    "item": "avaritiaalpha:neutronium_nugget"
+  }
+}
