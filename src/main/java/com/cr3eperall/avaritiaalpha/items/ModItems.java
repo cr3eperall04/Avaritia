@@ -1,5 +1,6 @@
 package com.cr3eperall.avaritiaalpha.items;
 
+import com.cr3eperall.avaritiaalpha.items.tools.InfinityAxe;
 import net.minecraftforge.registries.ObjectHolder;
 
 public class ModItems {
@@ -17,4 +18,7 @@ public class ModItems {
 
     @ObjectHolder("avaritiaalpha:neutronium_pile")
     public static NeutroniumPile NEUTRONIUMPILE;
+
+    @ObjectHolder("avaritiaalpha:infinity_axe")
+    public static InfinityAxe INFINITYAXE;
 }

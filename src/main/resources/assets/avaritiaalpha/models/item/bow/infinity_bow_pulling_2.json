@@ -1,0 +1,6 @@
+{
+  "parent": "avaritiaalpha:item/infinity_bow",
+  "textures": {
+    "layer0": "avaritiaalpha:item/bow/infinity_bow_pulling_2"
+  }
+}

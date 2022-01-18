@@ -7,12 +7,21 @@ import com.cr3eperall.avaritiaalpha.blocks.NeutroniumBlock;
 import com.cr3eperall.avaritiaalpha.blocks.gui.NeutronCollectorContainer;
 import com.cr3eperall.avaritiaalpha.blocks.tiles.NeutronCollectorTile;
 import com.cr3eperall.avaritiaalpha.config.Config;
+import com.cr3eperall.avaritiaalpha.entity.HeavenArrowEntity;
+import com.cr3eperall.avaritiaalpha.entity.HeavenSubArrowEntity;
+import com.cr3eperall.avaritiaalpha.entity.ModEntities;
 import com.cr3eperall.avaritiaalpha.items.*;
+import com.cr3eperall.avaritiaalpha.items.tools.InfinityAxe;
+import com.cr3eperall.avaritiaalpha.items.tools.InfinityBow;
 import com.cr3eperall.avaritiaalpha.setup.ClientProxy;
 import com.cr3eperall.avaritiaalpha.setup.IProxy;
 import com.cr3eperall.avaritiaalpha.setup.ModSetup;
 import com.cr3eperall.avaritiaalpha.setup.ServerProxy;
 import net.minecraft.block.Block;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityClassification;
+import net.minecraft.entity.EntityType;
+import net.minecraft.entity.projectile.ArrowEntity;
 import net.minecraft.inventory.container.ContainerType;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
@@ -103,6 +112,14 @@ public class AvaritiaAlpha {
             registry.register(new NeutroniumPile());
             registry.register(new NeutroniumNugget());
             registry.register(new NeutroniumIngot());
+            registry.register(new InfinityAxe());
+            registry.register(new InfinityBow());
+        }
+
+        @SubscribeEvent
+        public static void onEntityRegistry(final RegistryEvent.Register<EntityType<?>> entityRegistryEvent) {
+            entityRegistryEvent.getRegistry().register(ModEntities.heavenArrowEntityEntityType);
+            entityRegistryEvent.getRegistry().register(ModEntities.heavenSubArrowEntityEntityType);
         }
 
         @SubscribeEvent

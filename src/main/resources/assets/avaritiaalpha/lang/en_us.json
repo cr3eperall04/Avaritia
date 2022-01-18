@@ -4,5 +4,15 @@
   "item.avaritiaalpha.crystal_matrix_ingot": "Crystal Matrix ingot",
   "block.avaritiaalpha.neutron_collector": "Neutron Collector",
   "block.avaritiaalpha.neutronium_block": "Neutronium Block",
+  "item.avaritiaalpha.neutronium_ingot": "Neutronium Ingot",
+  "item.avaritiaalpha.neutronium_nugget": "Neutronium Nugget",
+  "item.avaritiaalpha.neutronium_pile": "Pile of Neutrons",
+  "item.avaritiaalpha.infinity_axe": "Nature's Ruin",
+  "item.avaritiaalpha.infinity_bow": "Longbow of the Heavens",
+  "item.avaritiaalpha.infinity_hoe": "Hoe of the Green Earth",
+  "item.avaritiaalpha.infinity_pickaxe": "World Breaker",
+  "item.avaritiaalpha.infinity_shovel": "Nature's Ruin",
+  "item.avaritiaalpha.infinity_sword": "Planet Eater",
+  "item.avaritiaalpha.skullfire_sword": "Skullfire Sword",
   "itemGroup.avaritiaalpha": "Avaritia Alpha"
 }
