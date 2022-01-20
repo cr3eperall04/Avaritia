@@ -1,8 +1,11 @@
 package com.cr3eperall.avaritiaalpha.items.tools;
 
+import codechicken.lib.raytracer.RayTracer;
 import com.cr3eperall.avaritiaalpha.AvaritiaAlpha;
 import com.cr3eperall.avaritiaalpha.config.Config;
 import com.cr3eperall.avaritiaalpha.entity.ImmortalItemEntity;
+import com.cr3eperall.avaritiaalpha.handler.AvaritiaAlphaEventHandler;
+import com.cr3eperall.avaritiaalpha.util.ToolHelper;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.Entity;
@@ -12,11 +15,15 @@ import net.minecraft.item.AxeItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.ActionResultType;
+import net.minecraft.util.Direction;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.RayTraceContext;
+import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
 
 import javax.annotation.Nullable;
+import java.util.HashSet;
 import java.util.function.Consumer;
 
 public class InfinityAxe extends AxeItem {
@@ -42,20 +49,26 @@ public class InfinityAxe extends AxeItem {
             int range = Config.INFINITYAXE_RANGE.get();
             BlockPos min = new BlockPos(-range, -3, -range);
             BlockPos max = new BlockPos(range, range * 2 - 3, range);
-    //TODO aoeBlocks
-            //ToolHelper.aoeBlocks(player, stack, world, player.getPosition(), min, max, null, ToolHelper.materialsAxe, false);
+            ToolHelper.aoeBlocks(player, stack, world, player.getPosition(), min, max, null, ToolHelper.materialsAxe, false);
         }
         return new ActionResult<>(ActionResultType.SUCCESS, stack);
     }
 
     @Override
-    public boolean onBlockStartBreak(ItemStack itemstack, BlockPos pos, PlayerEntity player) {
-        //TODO break other blocks
-        //if (player.isSneaking()) {
-        //            return;
-        //        }
-        //        AvaritiaEventHandler.startCrawlerTask(player.world, player, stack, pos, 32, false, true, new HashSet<>());
+    public boolean onBlockStartBreak(ItemStack stack, BlockPos pos, PlayerEntity player) {
+
+        RayTraceResult traceResult = RayTracer.retrace(player, 10, RayTraceContext.BlockMode.COLLIDER, RayTraceContext.FluidMode.NONE);
+        if (traceResult != null) {
+            breakOtherBlock(player, stack, pos);
+        }
         return false;
+    }
+
+    public void breakOtherBlock(PlayerEntity player, ItemStack stack, BlockPos pos) {
+        if (player.isSneaking()) {
+            return;
+        }
+        AvaritiaAlphaEventHandler.startCrawlerTask(player.world, player, stack, pos, 32, false, true, new HashSet<>());
     }
 
     @Override

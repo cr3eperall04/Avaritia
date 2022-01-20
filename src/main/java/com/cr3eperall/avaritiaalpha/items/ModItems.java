@@ -1,6 +1,7 @@
 package com.cr3eperall.avaritiaalpha.items;
 
-import com.cr3eperall.avaritiaalpha.items.tools.InfinityAxe;
+import com.cr3eperall.avaritiaalpha.items.tools.*;
+import net.minecraft.item.Item;
 import net.minecraftforge.registries.ObjectHolder;
 
 public class ModItems {
@@ -21,4 +22,11 @@ public class ModItems {
 
     @ObjectHolder("avaritiaalpha:infinity_axe")
     public static InfinityAxe INFINITYAXE;
+
+    public static InfinityPickaxe infinity_pickaxe;
+    @ObjectHolder("avaritiaalpha:matter_cluster")
+    public static MatterCluster matter_cluster;
+    public static InfinityShovel infinity_shovel;
+    public static SkullfireSword skullfire_sword;
+    public static InfinitySword infinity_sword;
 }

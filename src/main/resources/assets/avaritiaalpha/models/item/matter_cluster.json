@@ -1,0 +1,14 @@
+{
+  "parent" : "item/generated",
+  "textures": {
+    "layer0": "avaritiaalpha:item/matter_cluster/empty"
+  },
+  "overrides": [
+    {
+      "predicate": {
+        "avaritiaalpha:clustersize": 4096
+      },
+      "model": "avaritiaalpha:item/matter_cluster_critical"
+    }
+  ]
+}
