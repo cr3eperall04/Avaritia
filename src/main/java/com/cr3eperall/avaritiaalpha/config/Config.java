@@ -7,7 +7,6 @@ import net.minecraftforge.fml.common.Mod;
 
 import java.nio.file.Path;
 
-@Mod.EventBusSubscriber
 public class Config {
     public static final String CATEGORY_GENERAL="general";
 
@@ -17,8 +16,14 @@ public class Config {
     public static ForgeConfigSpec COMMON_CONFIG;
     public static ForgeConfigSpec CLIENT_CONFIG;
 
+
     public static ForgeConfigSpec.IntValue NEUTRONCOLLECTOR_RATE;
     public static ForgeConfigSpec.IntValue INFINITYAXE_RANGE;
+
+    public static ForgeConfigSpec.BooleanValue endStone;
+    public static ForgeConfigSpec.BooleanValue bedrockBreaker;
+    public static ForgeConfigSpec.BooleanValue boringFood;
+    public static ForgeConfigSpec.BooleanValue verboseCraftTweekerLogging;
 
     static {
         COMMON_BUILDER.comment("General settings").push(CATEGORY_GENERAL);
@@ -28,6 +33,15 @@ public class Config {
 
         INFINITYAXE_RANGE=COMMON_BUILDER.comment("range for the infinity axe shift+right click")
                         .defineInRange("infinityAxeRange",13,0,1024);
+
+        endStone=COMMON_BUILDER.comment("endStone")
+                        .define("endStone",true);
+        bedrockBreaker=COMMON_BUILDER.comment("bedrockBreaker")
+                .define("bedrockBreaker",true);
+        boringFood=COMMON_BUILDER.comment("boringFood")
+                .define("boringFood",false);
+        verboseCraftTweekerLogging=COMMON_BUILDER.comment("verboseCraftTweekerLogging")
+                .define("verboseCraftTweekerLogging",false);
         COMMON_BUILDER.pop();
 
 

@@ -14,5 +14,18 @@
   "item.avaritiaalpha.infinity_shovel": "Nature's Ruin",
   "item.avaritiaalpha.infinity_sword": "Planet Eater",
   "item.avaritiaalpha.skullfire_sword": "Skullfire Sword",
-  "itemGroup.avaritiaalpha": "Avaritia Alpha"
+  "item.avaritiaalpha.matter_cluster": "Matter Cluster",
+  "itemGroup.avaritiaalpha": "Avaritia Alpha",
+
+  "tooltip.item.resource.crystal_matrix_ingot.desc":"This isn't even its final form",
+  "tooltip.item.resource.neutron_pile.desc":"Try not to think about it.",
+  "tooltip.item.resource.neutron_nugget.desc":"About 35.6 million metric tons.",
+  "tooltip.item.resource.neutronium_ingot.desc":"The dense heart of a star in convenient ingot form.",
+  "tooltip.item.resource.infinity_catalyst.desc":"One is all and all is one.",
+  "tooltip.item.resource.infinity_ingot.desc":"The fury of the universe in the palm of your hand.",
+  "tooltip.item.resource.record_fragment.desc":"One likes to believe in the freedom of music~",
+  "tooltip.skullfire_sword.desc":"Beheads skeletons and scorches them black.",
+  "tooltip.matter_cluster.desc":"Use to deconstruct.",
+  "tooltip.matter_cluster.desc2":"Hold SHIFT for contents.",
+  "tooltip.matter_cluster.counter":"items"
 }

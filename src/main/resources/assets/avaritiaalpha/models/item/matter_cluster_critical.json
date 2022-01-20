@@ -1,0 +1,6 @@
+{
+  "parent": "avaritiaalpha:item/matter_cluster",
+  "textures": {
+    "layer0": "avaritiaalpha:item/matter_cluster/full"
+  }
+}

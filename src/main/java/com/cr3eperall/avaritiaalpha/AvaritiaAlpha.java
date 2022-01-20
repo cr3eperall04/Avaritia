@@ -114,6 +114,7 @@ public class AvaritiaAlpha {
             registry.register(new NeutroniumIngot());
             registry.register(new InfinityAxe());
             registry.register(new InfinityBow());
+            registry.register(new MatterCluster());
         }
 
         @SubscribeEvent
@@ -136,8 +137,6 @@ public class AvaritiaAlpha {
     }
 
     private void doClientStuff(final FMLClientSetupEvent event) {
-        // do something that can only be done on the client
-        LOGGER.info("Got game settings {}", event.getMinecraftSupplier().get().gameSettings);
     }
 
     private void enqueueIMC(final InterModEnqueueEvent event) {

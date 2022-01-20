@@ -1,5 +1,6 @@
 package com.cr3eperall.avaritiaalpha.blocks;
 
+import codechicken.lib.util.ItemUtils;
 import codechicken.lib.util.RotationUtils;
 import com.cr3eperall.avaritiaalpha.blocks.tiles.NeutronCollectorTile;
 import net.minecraft.block.Block;
@@ -54,9 +55,7 @@ public class NeutronCollector extends Block {
             ItemStack stack=((ItemStackHandler)h).getStackInSlot(0);
             ItemEntity drop;
             if(stack != null) {
-                drop = new ItemEntity(worldIn, pos.getX(), pos.getY(), pos.getZ(), stack);
-                drop.setDefaultPickupDelay();
-                worldIn.addEntity(drop);
+                ItemUtils.dropItem(worldIn,pos,stack);
             }
         });
         super.onReplaced(state,worldIn,pos,newState,isMoving);
