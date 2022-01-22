@@ -11,10 +11,7 @@ import com.cr3eperall.avaritiaalpha.entity.HeavenArrowEntity;
 import com.cr3eperall.avaritiaalpha.entity.HeavenSubArrowEntity;
 import com.cr3eperall.avaritiaalpha.entity.ModEntities;
 import com.cr3eperall.avaritiaalpha.items.*;
-import com.cr3eperall.avaritiaalpha.items.tools.InfinityAxe;
-import com.cr3eperall.avaritiaalpha.items.tools.InfinityBow;
-import com.cr3eperall.avaritiaalpha.items.tools.InfinityHoe;
-import com.cr3eperall.avaritiaalpha.items.tools.InfinitySword;
+import com.cr3eperall.avaritiaalpha.items.tools.*;
 import com.cr3eperall.avaritiaalpha.setup.ClientProxy;
 import com.cr3eperall.avaritiaalpha.setup.IProxy;
 import com.cr3eperall.avaritiaalpha.setup.ModSetup;
@@ -119,6 +116,7 @@ public class AvaritiaAlpha {
             registry.register(new MatterCluster());
             registry.register(new InfinitySword());
             registry.register(new InfinityHoe());
+            registry.register(new InfinityPickaxe());
         }
 
         @SubscribeEvent

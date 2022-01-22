@@ -1,5 +1,6 @@
 package com.cr3eperall.avaritiaalpha.util;
 
+import codechicken.lib.raytracer.RayTracer;
 import codechicken.lib.util.ItemUtils;
 import com.cr3eperall.avaritiaalpha.handler.AvaritiaAlphaEventHandler;
 import com.cr3eperall.avaritiaalpha.items.MatterCluster;
@@ -14,7 +15,10 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.RayTraceContext;
 import net.minecraft.world.World;
+import net.minecraft.world.storage.loot.LootContext;
+import net.minecraft.world.storage.loot.LootParameters;
 
 import java.util.*;
 
@@ -24,7 +28,7 @@ public class ToolHelper {
     public static Material[] materialsShovel = new Material[] { Material.ORGANIC, Material.EARTH, Material.SAND, Material.SNOW, Material.SNOW_BLOCK, Material.CLAY };
     public static Set<Material> materialsAxe = Sets.newHashSet(Material.CORAL, Material.LEAVES, Material.PLANTS, Material.TALL_PLANTS, Material.WOOD, Material.LEAVES);
 
-    public static void aoeBlocks(PlayerEntity player, ItemStack stack, World world, BlockPos origin, BlockPos min, BlockPos max, Block target, Set<Material> validMaterials, boolean filterTrash) {
+    public static void aoeBlocks(PlayerEntity player, ItemStack stack, World world, BlockPos origin, BlockPos min, BlockPos max, Block target, Set<Material> validMaterials, boolean filterTrash, boolean checkHarvestability) {
 
         AvaritiaAlphaEventHandler.enableItemCapture();
 
@@ -32,7 +36,7 @@ public class ToolHelper {
             for (int ly = min.getY(); ly < max.getY(); ly++) {
                 for (int lz = min.getZ(); lz < max.getZ(); lz++) {
                     BlockPos pos = origin.add(lx, ly, lz);
-                    removeBlockWithDrops(player, stack, world, pos, target, validMaterials);
+                    removeBlockWithDrops(player, stack, world, pos, target, validMaterials, checkHarvestability);
                 }
             }
         }
@@ -53,7 +57,7 @@ public class ToolHelper {
         }
     }
 
-    public static void removeBlockWithDrops(PlayerEntity player, ItemStack stack, World world, BlockPos pos, Block target, Set<Material> validMaterials) {
+    public static void removeBlockWithDrops(PlayerEntity player, ItemStack stack, World world, BlockPos pos, Block target, Set<Material> validMaterials, boolean checkHarvestability) {
         if (!world.isBlockLoaded(pos)) {
             return;
         }
@@ -67,18 +71,32 @@ public class ToolHelper {
             if (block == Blocks.GRASS_BLOCK && stack.getItem() == ModItems.INFINITYAXE) {
                 world.setBlockState(pos, Blocks.DIRT.getDefaultState());
             }
-            //if (block == Blocks.GRASS && stack.getItem() == ModItems.INFINITYAXE) {
-            //    world.destroyBlock(pos,false);
-            //}
-            if (!block.canHarvestBlock(state, world, pos, player) || !validMaterials.contains(material)) {
-                return;
-            }
-            //BlockEvent.BreakEvent event = new BlockEvent.BreakEvent(world, pos, state, player);
-            //MinecraftForge.EVENT_BUS.post(event);
-            //if (!event.isCanceled()) {
+
+            if (checkHarvestability) {
+                if (!block.canHarvestBlock(state, world, pos, player) || !validMaterials.contains(material)) {
+                    return;
+                }
                 world.destroyBlock(pos,!player.isCreative());
-            //}
+            }else{
+                removeBlockWithOPDrop(player,stack,world,pos);
+            }
         }
+    }
+
+    public static void removeBlockWithOPDrop(PlayerEntity player, ItemStack stack, World world, BlockPos pos){
+        BlockState state = world.getBlockState(pos);
+        Block block = state.getBlock();
+        List<ItemStack> drops=block.getDrops(state, new LootContext.Builder(world.getServer().func_71218_a(player.dimension)).withParameter(LootParameters.POSITION,pos).withParameter(LootParameters.TOOL,stack));
+        if (drops.isEmpty() || drops.get(0).isEmpty()) {
+            ItemStack drop =block.getPickBlock(state, RayTracer.retrace(player,10, RayTraceContext.BlockMode.COLLIDER, RayTraceContext.FluidMode.NONE), world, pos, player);
+            if (drop.isEmpty()) {
+                drop=new ItemStack(block, 1);
+            }
+            ItemUtils.dropItem(world,pos,drop);
+        } else {
+            block.harvestBlock(world, player, pos, state, null, stack);
+        }
+        world.destroyBlock(pos,false);
     }
 
     public static Set<ItemStack> removeTrash(ItemStack holdingStack, Set<ItemStack> drops) {

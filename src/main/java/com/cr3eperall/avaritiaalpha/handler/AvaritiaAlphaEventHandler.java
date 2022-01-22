@@ -1,10 +1,13 @@
 package com.cr3eperall.avaritiaalpha.handler;
 
+import codechicken.lib.raytracer.RayTracer;
+import codechicken.lib.util.ItemUtils;
 import com.cr3eperall.avaritiaalpha.AvaritiaAlpha;
 import com.cr3eperall.avaritiaalpha.config.Config;
 import com.cr3eperall.avaritiaalpha.items.InfinityArmor;
 import com.cr3eperall.avaritiaalpha.items.MatterCluster;
 import com.cr3eperall.avaritiaalpha.items.ModItems;
+import com.cr3eperall.avaritiaalpha.items.tools.InfinityPickaxe;
 import com.cr3eperall.avaritiaalpha.items.tools.InfinitySword;
 import com.cr3eperall.avaritiaalpha.util.TextUtils;
 import com.cr3eperall.avaritiaalpha.util.ToolHelper;
@@ -23,10 +26,15 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.util.Hand;
+import net.minecraft.util.SoundCategory;
+import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.RayTraceContext;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
+import net.minecraft.world.server.ServerWorld;
+import net.minecraft.world.storage.loot.LootContext;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.event.TickEvent;
@@ -167,23 +175,14 @@ public class AvaritiaAlphaEventHandler {
         BlockPos pos = event.getPos();
         BlockState state = world.getBlockState(pos);
         Block block = state.getBlock();
-        //int meta = block.getMetaFromState(state);
-        if (state.getBlockHardness(world, event.getPos()) <= -1 && event.getItemStack().getItem() == ModItems.infinity_pickaxe && (state.getMaterial() == Material.ROCK || state.getMaterial() == Material.IRON)) {
+
+        if (state.getBlockHardness(world, event.getPos()) < 0 && (event.getItemStack().getItem() instanceof InfinityPickaxe) && (state.getMaterial() == Material.ROCK || state.getMaterial() == Material.IRON)) {
 
             if (event.getItemStack().getTag() != null && event.getItemStack().getTag().getBoolean("hammer")) {
-                ModItems.infinity_pickaxe.onBlockStartBreak(event.getPlayer().getHeldItem(Hand.MAIN_HAND), event.getPos(), event.getPlayer());
-            } else {//TODO, FIXME, HELP!
-                //if (block.quantityDropped(randy) == 0) {
-                //    ItemStack drop = block.getPickBlock(state, ToolHelper.raytraceFromEntity(event.getWorld(), event.getPlayer(), true, 10), event.getWorld(), event.getPos(), event.getPlayer());
-                //    if (drop == null) {
-                //        drop = new ItemStack(block, 1, meta);
-                //    }
-                //    ToolHelper.dropItem(drop, event.getPlayer().worldObj, event.getPos());
-                //} else {
-                //    block.harvestBlock(event.getWorld(), event.getPlayer(), event.getPos(), state, null, null);
-                ///}
-                //event.getWorld().setBlockToAir(event.getPos());
-                //event.world.playAuxSFX(2001, event.getPos(), Block.getIdFromBlock(block) + (meta << 12));
+                event.getItemStack().onBlockStartBreak(event.getPos(), event.getPlayer());
+            } else {//TODO, FIX hammer drops
+                ToolHelper.removeBlockWithOPDrop(event.getPlayer(),event.getItemStack(),event.getWorld(),event.getPos());
+                event.getWorld().playSound(event.getPlayer(), pos, block.getSoundType(state,world,pos, event.getPlayer()).getBreakSound(), SoundCategory.BLOCKS, 1.0F, 1.0F);
             }
         }
     }

@@ -41,7 +41,7 @@ public class AOECrawlerTask {
         if (!force && originBlock.isAir(originState, world, origin)) {
             return;
         }
-        ToolHelper.removeBlockWithDrops(player, stack, world, origin, null, ToolHelper.materialsAxe);
+        ToolHelper.removeBlockWithDrops(player, stack, world, origin, null, ToolHelper.materialsAxe, true);
         if (steps == 0) {
             return;
         }

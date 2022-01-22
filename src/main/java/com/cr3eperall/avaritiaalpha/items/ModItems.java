@@ -27,6 +27,8 @@ public class ModItems {
     public static MatterCluster MATTERCLUSTER;
     @ObjectHolder("avaritiaalpha:infinity_hoe")
     public static InfinityHoe INFINITYHOE;
+    @ObjectHolder("avaritiaalpha:infinity_pickaxe")
+    public static InfinityPickaxe INFINITYPICKAXE;
     public static InfinityShovel infinity_shovel;
     public static SkullfireSword skullfire_sword;
     @ObjectHolder("avaritiaalpha:infinity_sword")
