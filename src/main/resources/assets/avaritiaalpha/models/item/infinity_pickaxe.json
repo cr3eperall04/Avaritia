@@ -1,0 +1,14 @@
+{
+  "parent" : "item/generated",
+  "textures": {
+    "layer0": "avaritiaalpha:item/infinity_pickaxe/pickaxe"
+  },
+  "overrides": [
+    {
+      "predicate": {
+        "avaritiaalpha:hammer": 1
+      },
+      "model": "avaritiaalpha:item/infinity_hammer"
+    }
+  ]
+}

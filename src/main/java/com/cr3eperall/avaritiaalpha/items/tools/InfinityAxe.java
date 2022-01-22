@@ -49,7 +49,7 @@ public class InfinityAxe extends AxeItem {
             int range = Config.INFINITYAXE_RANGE.get();
             BlockPos min = new BlockPos(-range, -3, -range);
             BlockPos max = new BlockPos(range, range * 2 - 3, range);
-            ToolHelper.aoeBlocks(player, stack, world, player.getPosition(), min, max, null, ToolHelper.materialsAxe, false);
+            ToolHelper.aoeBlocks(player, stack, world, player.getPosition(), min, max, null, ToolHelper.materialsAxe, false,true);
         }
         return new ActionResult<>(ActionResultType.SUCCESS, stack);
     }
