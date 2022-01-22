@@ -21,7 +21,6 @@ import net.minecraft.util.Hand;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
-import net.minecraft.util.text.TextComponentUtils;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
 
@@ -124,7 +123,7 @@ public class MatterCluster extends Item {
     }
 
     public static ItemStack makeCluster(Map<ItemStackWrapper, Integer> input) {
-        ItemStack cluster = new ItemStack(ModItems.matter_cluster);
+        ItemStack cluster = new ItemStack(ModItems.MATTERCLUSTER);
         int total = 0;
         for (int num : input.values()) {
             total += num;

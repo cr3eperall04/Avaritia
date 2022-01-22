@@ -1,0 +1,7 @@
+{
+  "parent" : "item/handheld",
+  "textures": {
+    "layer0": "avaritiaalpha:item/infinity_sword/layer_0",
+    "layer1": "avaritiaalpha:item/infinity_sword/layer_1"
+  }
+}

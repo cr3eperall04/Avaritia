@@ -1,6 +1,5 @@
 package com.cr3eperall.avaritiaalpha.handler;
 
-import codechicken.lib.util.ItemUtils;
 import com.cr3eperall.avaritiaalpha.AvaritiaAlpha;
 import com.cr3eperall.avaritiaalpha.config.Config;
 import com.cr3eperall.avaritiaalpha.items.InfinityArmor;
@@ -345,7 +344,7 @@ public class AvaritiaAlphaEventHandler {
 
     @SubscribeEvent
     public static void clusterClustererererer(EntityItemPickupEvent event) {
-        if (event.getPlayer() != null && event.getItem().getItem().getItem() == ModItems.matter_cluster) {
+        if (event.getPlayer() != null && event.getItem().getItem().getItem() == ModItems.MATTERCLUSTER) {
             ItemStack stack = event.getItem().getItem();
             PlayerEntity player = event.getPlayer();
 
@@ -353,7 +352,7 @@ public class AvaritiaAlphaEventHandler {
                 if (stack.isEmpty()) {
                     break;
                 }
-                if (slot.getItem() == ModItems.matter_cluster) {
+                if (slot.getItem() == ModItems.MATTERCLUSTER) {
                     MatterCluster.mergeClusters(stack, slot);
                 }
             }
