@@ -27,5 +27,6 @@
   "tooltip.skullfire_sword.desc":"Beheads skeletons and scorches them black.",
   "tooltip.matter_cluster.desc":"Use to deconstruct.",
   "tooltip.matter_cluster.desc2":"Hold SHIFT for contents.",
-  "tooltip.matter_cluster.counter":"items"
+  "tooltip.matter_cluster.counter":"items",
+  "tip.infinity": "Infinity"
 }

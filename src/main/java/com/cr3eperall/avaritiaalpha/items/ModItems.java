@@ -33,4 +33,13 @@ public class ModItems {
     public static SkullfireSword skullfire_sword;
     @ObjectHolder("avaritiaalpha:infinity_sword")
     public static InfinitySword infinity_sword;
+
+    @ObjectHolder("avaritiaalpha:infinity_helmet")
+    public static InfinityArmor infinity_helmet;
+    @ObjectHolder("avaritiaalpha:infinity_chestplate")
+    public static InfinityArmor infinity_chestplate;
+    @ObjectHolder("avaritiaalpha:infinity_pants")
+    public static InfinityArmor infinity_pants;
+    @ObjectHolder("avaritiaalpha:infinity_boots")
+    public static InfinityArmor infinity_boots;
 }
