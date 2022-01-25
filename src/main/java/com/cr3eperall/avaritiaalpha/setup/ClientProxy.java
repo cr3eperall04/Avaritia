@@ -1,5 +1,6 @@
 package com.cr3eperall.avaritiaalpha.setup;
 
+import codechicken.lib.texture.TextureUtils;
 import com.cr3eperall.avaritiaalpha.blocks.ModBlocks;
 import com.cr3eperall.avaritiaalpha.blocks.gui.NeutronCollectorContainer;
 import com.cr3eperall.avaritiaalpha.blocks.gui.NeutronCollectorScreen;
@@ -21,6 +22,9 @@ public class ClientProxy implements IProxy{
         ScreenManager.registerFactory(ModBlocks.NEUTRONCOLLECTOR_CONTAINER, NeutronCollectorScreen::new);
         RenderingRegistry.registerEntityRenderingHandler(HeavenArrowEntity.class, HeavenArrowRenderer::new);
         RenderingRegistry.registerEntityRenderingHandler(HeavenSubArrowEntity.class, HeavenArrowRenderer::new);
+    }
+
+    public void preinit(){
     }
 
     @Override

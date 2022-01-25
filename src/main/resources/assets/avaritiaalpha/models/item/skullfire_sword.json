@@ -1,0 +1,6 @@
+{
+  "parent" : "item/handheld",
+  "textures": {
+    "layer0": "avaritiaalpha:item/skullfire_sword"
+  }
+}

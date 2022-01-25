@@ -12,6 +12,7 @@ import com.cr3eperall.avaritiaalpha.entity.HeavenSubArrowEntity;
 import com.cr3eperall.avaritiaalpha.entity.ModEntities;
 import com.cr3eperall.avaritiaalpha.items.*;
 import com.cr3eperall.avaritiaalpha.items.tools.*;
+import com.cr3eperall.avaritiaalpha.render.AvaritiaAlphaClientEventHandler;
 import com.cr3eperall.avaritiaalpha.setup.ClientProxy;
 import com.cr3eperall.avaritiaalpha.setup.IProxy;
 import com.cr3eperall.avaritiaalpha.setup.ModSetup;
@@ -21,12 +22,16 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.projectile.ArrowEntity;
+import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.inventory.container.ContainerType;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.tileentity.TileEntityType;
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.extensions.IForgeContainerType;
 import net.minecraftforge.event.RegistryEvent;
+import net.minecraftforge.eventbus.EventBus;
+import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.InterModComms;
@@ -65,13 +70,10 @@ public class AvaritiaAlpha {
 
         // Register the setup method for modloading
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::setup);
-
+        MinecraftForge.EVENT_BUS.register(AvaritiaAlphaClientEventHandler.class);
         //Config.loadConfig(Config.CLIENT_CONFIG, FMLPaths.CONFIGDIR.get().resolve("avaritiaalpha-client.toml"));
         Config.loadConfig(Config.COMMON_CONFIG, FMLPaths.CONFIGDIR.get().resolve("avaritiaalpha-common.toml"));
-
-
-
-
+        FMLJavaModLoadingContext.get().getModEventBus().addListener(AvaritiaAlphaClientEventHandler::textureStichPre);
         // Register the enqueueIMC method for modloading
         //FMLJavaModLoadingContext.get().getModEventBus().addListener(this::enqueueIMC);
         // Register the processIMC method for modloading
@@ -92,6 +94,7 @@ public class AvaritiaAlpha {
     // Event bus for receiving Registry Events)
     @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD)
     public static class RegistryEvents {
+
         @SubscribeEvent
         public static void onBlocksRegistry(final RegistryEvent.Register<Block> blockRegistryEvent) {
             IForgeRegistry registry=blockRegistryEvent.getRegistry();
@@ -111,12 +114,19 @@ public class AvaritiaAlpha {
             registry.register(new NeutroniumPile());
             registry.register(new NeutroniumNugget());
             registry.register(new NeutroniumIngot());
-            registry.register(new InfinityAxe());
             registry.register(new InfinityBow());
             registry.register(new MatterCluster());
             registry.register(new InfinitySword());
             registry.register(new InfinityHoe());
             registry.register(new InfinityPickaxe());
+            registry.register(new InfinityShovel());
+            registry.register(new InfinityAxe());
+            registry.register(new SkullfireSword());
+            registry.register(new InfinityArmor(EquipmentSlotType.HEAD).setRegistryName("infinity_helmet"));
+            registry.register(new InfinityArmor(EquipmentSlotType.CHEST).setRegistryName("infinity_chestplate"));
+            registry.register(new InfinityArmor(EquipmentSlotType.LEGS).setRegistryName("infinity_pants"));
+            registry.register(new InfinityArmor(EquipmentSlotType.FEET).setRegistryName("infinity_boots"));
+
         }
 
         @SubscribeEvent
@@ -162,6 +172,7 @@ public class AvaritiaAlpha {
         // do something when the server starts
         LOGGER.info("HELLO from server starting");
     }
+
 
 
 }
