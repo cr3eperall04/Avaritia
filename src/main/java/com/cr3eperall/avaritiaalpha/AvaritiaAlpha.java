@@ -126,13 +126,15 @@ public class AvaritiaAlpha {
             registry.register(new InfinityArmor(EquipmentSlotType.CHEST).setRegistryName("infinity_chestplate"));
             registry.register(new InfinityArmor(EquipmentSlotType.LEGS).setRegistryName("infinity_pants"));
             registry.register(new InfinityArmor(EquipmentSlotType.FEET).setRegistryName("infinity_boots"));
-
+            registry.register(new EndestPearl());
         }
 
         @SubscribeEvent
         public static void onEntityRegistry(final RegistryEvent.Register<EntityType<?>> entityRegistryEvent) {
             entityRegistryEvent.getRegistry().register(ModEntities.heavenArrowEntityEntityType);
             entityRegistryEvent.getRegistry().register(ModEntities.heavenSubArrowEntityEntityType);
+            entityRegistryEvent.getRegistry().register(ModEntities.gapingVoidEntityEntityType);
+            entityRegistryEvent.getRegistry().register(ModEntities.endestPearlEntityEntityType);
         }
 
         @SubscribeEvent
