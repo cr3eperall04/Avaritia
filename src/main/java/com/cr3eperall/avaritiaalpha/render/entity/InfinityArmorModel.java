@@ -108,6 +108,7 @@ public class InfinityArmorModel extends BipedModel<LivingEntity> {
         bipedBody.addChild(bipedLeftWing);
 
         bipedRightWing = new WingModelRenderer(this, 0, 0);
+        bipedRightWing.mirror=true;
         bipedRightWing.addBox(0f, -11.6f, 0f, 0, 32, 32);
         bipedRightWing.setRotationPoint(1.5f, 0.0f, 2.0f);
         bipedRightWing.rotateAngleY = (float) (-Math.PI * 0.4);
@@ -488,6 +489,7 @@ public class InfinityArmorModel extends BipedModel<LivingEntity> {
                 bipedBody.addChild(bipedLeftWing);
 
                 bipedRightWing = new WingModelRenderer(this, oxw, oyw);
+                bipedRightWing.mirror=true;
                 bipedRightWing.addBox(0f, -11.6f, 0f, 0, 32, 32);
                 bipedRightWing.setRotationPoint(1.5f, 0.0f, 2.0f);
                 bipedRightWing.rotateAngleY = (float) (-Math.PI * 0.4);
