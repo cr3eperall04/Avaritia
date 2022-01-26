@@ -42,4 +42,7 @@ public class ModItems {
     public static InfinityArmor infinity_pants;
     @ObjectHolder("avaritiaalpha:infinity_boots")
     public static InfinityArmor infinity_boots;
+
+    @ObjectHolder("avaritiaalpha:endest_pearl")
+    public static EndestPearl endest_pearl;
 }
