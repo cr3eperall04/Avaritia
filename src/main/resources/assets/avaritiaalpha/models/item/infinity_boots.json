@@ -1,0 +1,6 @@
+{
+  "parent" : "item/generated",
+  "textures": {
+    "layer0": "avaritiaalpha:item/armor/boots/layer_0"
+  }
+}

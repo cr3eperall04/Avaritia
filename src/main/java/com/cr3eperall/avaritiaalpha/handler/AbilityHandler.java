@@ -199,7 +199,7 @@ public class AbilityHandler {
             boolean sneaking = entity.isSneaking();
 
             float speed = 0.15f * (flying ? 1.1f : 1.0f)
-                    //* (swimming ? 1.2f : 1.0f)
+                    * (swimming ? 1.2f : 1.0f)
                     * (sneaking ? 0.1f : 1.0f);
 
             if (entity.moveForward > 0f) {
