@@ -20,11 +20,11 @@ displayName="AvaritiaAlpha" #mandatory
 # A URL to query for updates for this mod. See the JSON update specification <here>
 # updateJSONURL="http://myurl.me/" #optional
 # A URL for the "homepage" for this mod, displayed in the mod UI
-displayURL="http://example.com/" #optional
+# displayURL="http://example.com/" #optional
 # A file name (in the root of the mod JAR) containing a logo for display
-logoFile="avaritiaalpha.png" #optional
+# logoFile="avaritiaalpha.png" #optional
 # A text field displayed in the mod UI
-credits="The original Avaritia authors" #optional
+credits="The original Avaritia authors: SpitefulFox, TTFTCUTS, Vazkii, Greg, brandon3055, vswe, Algorithm" #optional
 # A text field displayed in the mod UI
 authors="cr3eperall" #optional
 # The description text for the mod (multi line!) (#mandatory)
@@ -48,5 +48,11 @@ unofficial Avaritia port for 1.14+ versions
     modId="minecraft"
     mandatory=true
     versionRange="[1.14.4]"
+    ordering="NONE"
+    side="BOTH"
+[[dependencies.avaritiaalpha]]
+    modId="codechickenlib"
+    mandatory=true
+    versionRange="[3.2,)"
     ordering="NONE"
     side="BOTH"

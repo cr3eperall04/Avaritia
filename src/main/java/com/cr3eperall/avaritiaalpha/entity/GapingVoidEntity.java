@@ -106,7 +106,7 @@ public class GapingVoidEntity extends Entity {
             remove();
         } else {
             if (age == 0) {
-                world.playSound(posX, posY, posZ, SoundEvents.ENTITY_ENDERMAN_SCREAM, SoundCategory.HOSTILE, 8.0F, 1.0F, true);
+                world.playSound(posX, posY, posZ, SoundEvents.ENTITY_ENDERMAN_STARE, SoundCategory.HOSTILE, 8.0F, 1.0F, true);
             }
             setAge(age + 1);
         }
