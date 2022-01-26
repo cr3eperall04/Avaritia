@@ -14,6 +14,9 @@ import net.minecraft.client.renderer.entity.EntityRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererManager;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.fml.common.ObfuscationReflectionHelper;
+
+import java.lang.reflect.Field;
 
 
 public class GapingVoidRenderer extends EntityRenderer<GapingVoidEntity> {
@@ -23,8 +26,16 @@ public class GapingVoidRenderer extends EntityRenderer<GapingVoidEntity> {
 
     private CCModel model;
 
+    public Field renderPosX;
+    public Field renderPosY;
+    public Field renderPosZ;
+
+
     public GapingVoidRenderer(EntityRendererManager manager) {
         super(manager);
+        renderPosX=ObfuscationReflectionHelper.findField(EntityRendererManager.class,"field_78725_b");
+        renderPosY=ObfuscationReflectionHelper.findField(EntityRendererManager.class,"field_78726_c");
+        renderPosZ=ObfuscationReflectionHelper.findField(EntityRendererManager.class,"field_78723_d");
         model = OBJParser.parseModels(new ResourceLocation("avaritiaalpha", "models/hemisphere.obj")).get("model");
     }
 
@@ -49,9 +60,17 @@ public class GapingVoidRenderer extends EntityRenderer<GapingVoidEntity> {
         double halocoord = 0.58 * scale;
         double haloscaledist = 2.2 * scale;
 
-        double dx = ent.posX - renderManager.renderPosX;//TODO use Reflection instead of access transformer
-        double dy = ent.posY - renderManager.renderPosY;
-        double dz = ent.posZ - renderManager.renderPosZ;
+        double dx = ent.posX;
+        double dy = ent.posY;
+        double dz = ent.posZ;
+        try {
+            dx = ent.posX - renderPosX.getDouble(renderManager);
+            dy = ent.posY - renderPosY.getDouble(renderManager);
+            dz = ent.posZ - renderPosZ.getDouble(renderManager);
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        }
+
 
 
         double xzlen = Math.sqrt(dx * dx + dz * dz);
