@@ -8,7 +8,6 @@ import com.cr3eperall.avaritiaalpha.util.DamageSourceInfinitySword;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.IItemTier;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.SwordItem;
 import net.minecraft.util.EntityDamageSource;
@@ -35,7 +34,7 @@ public class InfinitySword extends SwordItem {
                 victim.attackEntityFrom(new DamageSourceInfinitySword(player).setDamageBypassesArmor(), 4.0F);
                 return true;
             }
-            if (pvp.getHeldItem(Hand.MAIN_HAND).getItem() == ModItems.infinity_sword && pvp.isHandActive()) {
+            if (pvp.getHeldItem(Hand.MAIN_HAND).getItem() == ModItems.INFINITYSWORD && pvp.isHandActive()) {
                 return true;
             }
         }

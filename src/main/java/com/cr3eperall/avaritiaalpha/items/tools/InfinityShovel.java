@@ -98,7 +98,7 @@ public class InfinityShovel extends ShovelItem {
         BlockPos minOffset = new BlockPos(-range, doY ? -1 : -range, -range);
         BlockPos maxOffset = new BlockPos(range, doY ? range * 2 - 2 : range, range);
 
-        ToolHelper.aoeBlocks(player, stack, world, pos, minOffset, maxOffset, null, InfinityPickaxe.MATERIALS, true, false);
+        ToolHelper.aoeBlocks(player, stack, world, pos, minOffset, maxOffset, null, ToolHelper.materialsShovel, true, true);
 
     }
 

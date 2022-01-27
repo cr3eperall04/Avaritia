@@ -1,9 +1,6 @@
 package com.cr3eperall.avaritiaalpha;
 
-import com.cr3eperall.avaritiaalpha.blocks.CrystalMatrixBlock;
-import com.cr3eperall.avaritiaalpha.blocks.ModBlocks;
-import com.cr3eperall.avaritiaalpha.blocks.NeutronCollector;
-import com.cr3eperall.avaritiaalpha.blocks.NeutroniumBlock;
+import com.cr3eperall.avaritiaalpha.blocks.*;
 import com.cr3eperall.avaritiaalpha.blocks.gui.NeutronCollectorContainer;
 import com.cr3eperall.avaritiaalpha.blocks.tiles.NeutronCollectorTile;
 import com.cr3eperall.avaritiaalpha.config.Config;
@@ -99,9 +96,9 @@ public class AvaritiaAlpha {
         public static void onBlocksRegistry(final RegistryEvent.Register<Block> blockRegistryEvent) {
             IForgeRegistry registry=blockRegistryEvent.getRegistry();
             registry.register(new CrystalMatrixBlock());
+            registry.register(new InfinityBlock());
             registry.register(new NeutronCollector());
             registry.register(new NeutroniumBlock());
-
         }
         @SubscribeEvent
         public static void onItemsRegistry(final RegistryEvent.Register<Item> itemRegistryEvent) {
@@ -109,8 +106,11 @@ public class AvaritiaAlpha {
             registry.register(new BlockItem(ModBlocks.CRYSTALMATRIXBLOCK, new Item.Properties().group(setup.itemGroup)).setRegistryName("crystal_matrix_block"));
             registry.register(new BlockItem(ModBlocks.NEUTRONCOLLECTOR, new Item.Properties().group(setup.itemGroup)).setRegistryName("neutron_collector"));
             registry.register(new BlockItem(ModBlocks.NEUTRONIUMBLOCK,new Item.Properties().group(setup.itemGroup)).setRegistryName("neutronium_block"));
+            registry.register(new BlockItem(ModBlocks.INFINITYBLOCK,new Item.Properties().group(setup.itemGroup)).setRegistryName("infinity_block"));
             registry.register(new DiamondLattice());
             registry.register(new CrystalMatrixIngot());
+            registry.register(new InfinityCatalyst());
+            registry.register(new InfinityIngot());
             registry.register(new NeutroniumPile());
             registry.register(new NeutroniumNugget());
             registry.register(new NeutroniumIngot());
@@ -127,6 +127,7 @@ public class AvaritiaAlpha {
             registry.register(new InfinityArmor(EquipmentSlotType.LEGS).setRegistryName("infinity_pants"));
             registry.register(new InfinityArmor(EquipmentSlotType.FEET).setRegistryName("infinity_boots"));
             registry.register(new EndestPearl());
+            registry.register(new RecordFragment());
         }
 
         @SubscribeEvent

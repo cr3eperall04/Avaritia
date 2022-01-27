@@ -2,21 +2,16 @@ package com.cr3eperall.avaritiaalpha.entity;
 
 import codechicken.lib.vec.Vector3;
 import com.cr3eperall.avaritiaalpha.items.ModItems;
-import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.IRendersAsItem;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.entity.projectile.ThrowableEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.IPacket;
 import net.minecraft.particles.ParticleTypes;
-import net.minecraft.tileentity.EndGatewayTileEntity;
-import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.Direction;
-import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.util.math.EntityRayTraceResult;
 import net.minecraft.util.math.RayTraceResult;
@@ -81,6 +76,6 @@ public class EndestPearlEntity extends ThrowableEntity implements IRendersAsItem
 
     @Override
     public ItemStack getItem() {
-        return new ItemStack(ModItems.endest_pearl);
+        return new ItemStack(ModItems.ENDESTPEARL);
     }
 }

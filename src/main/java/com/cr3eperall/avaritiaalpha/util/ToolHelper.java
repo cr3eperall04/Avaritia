@@ -24,8 +24,8 @@ import java.util.*;
 
 public class ToolHelper {
 
-    public static Material[] materialsPick = new Material[] { Material.ROCK, Material.IRON, Material.ICE, Material.GLASS, Material.PISTON, Material.ANVIL };
-    public static Material[] materialsShovel = new Material[] { Material.ORGANIC, Material.EARTH, Material.SAND, Material.SNOW, Material.SNOW_BLOCK, Material.CLAY };
+    public static Set<Material> materialsPick = Sets.newHashSet( Material.ROCK, Material.IRON, Material.ICE, Material.GLASS, Material.PISTON, Material.ANVIL );
+    public static Set<Material> materialsShovel = Sets.newHashSet( Material.ORGANIC, Material.EARTH, Material.SAND, Material.SNOW, Material.SNOW_BLOCK, Material.CLAY );
     public static Set<Material> materialsAxe = Sets.newHashSet(Material.CORAL, Material.LEAVES, Material.PLANTS, Material.TALL_PLANTS, Material.WOOD, Material.LEAVES);
 
     public static void aoeBlocks(PlayerEntity player, ItemStack stack, World world, BlockPos origin, BlockPos min, BlockPos max, Block target, Set<Material> validMaterials, boolean filterTrash, boolean checkHarvestability) {

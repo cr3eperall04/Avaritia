@@ -226,10 +226,10 @@ public class InfinityArmorModel extends BipedModel<LivingEntity> {
         ItemStack leg = entityLiving.getItemStackFromSlot(EquipmentSlotType.LEGS);
         ItemStack foot = entityLiving.getItemStackFromSlot(EquipmentSlotType.FEET);
 
-        boolean hasHat = hat != null && hat.getItem() == ModItems.infinity_helmet; //&& !((ItemArmorInfinity) (ModItems.infinity_helmet)).hasPhantomInk(hat);
-        boolean hasChest = chest != null && chest.getItem() == ModItems.infinity_chestplate; // && !((ItemArmorInfinity) (ModItems.infinity_chestplate)).hasPhantomInk(chest);
-        boolean hasLeg = leg != null && leg.getItem() == ModItems.infinity_pants; // && !((ItemArmorInfinity) (ModItems.infinity_pants)).hasPhantomInk(leg);
-        boolean hasFoot = foot != null && foot.getItem() == ModItems.infinity_boots; // && !((ItemArmorInfinity) (ModItems.infinity_boots)).hasPhantomInk(foot);
+        boolean hasHat = hat != null && hat.getItem() == ModItems.INFINITYHELMET; //&& !((ItemArmorInfinity) (ModItems.infinity_helmet)).hasPhantomInk(hat);
+        boolean hasChest = chest != null && chest.getItem() == ModItems.INFINITYCHESTPLATE; // && !((ItemArmorInfinity) (ModItems.infinity_chestplate)).hasPhantomInk(chest);
+        boolean hasLeg = leg != null && leg.getItem() == ModItems.INFINITYPANTS; // && !((ItemArmorInfinity) (ModItems.infinity_pants)).hasPhantomInk(leg);
+        boolean hasFoot = foot != null && foot.getItem() == ModItems.INFINITYBOOTS; // && !((ItemArmorInfinity) (ModItems.infinity_boots)).hasPhantomInk(foot);
 
         if (armorSlot == EquipmentSlotType.HEAD) {//TODO, Wot.
             if (hasHat && hasChest && hasLeg && hasFoot) {

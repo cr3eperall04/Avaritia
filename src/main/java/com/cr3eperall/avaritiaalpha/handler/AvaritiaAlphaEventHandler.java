@@ -1,7 +1,5 @@
 package com.cr3eperall.avaritiaalpha.handler;
 
-import codechicken.lib.raytracer.RayTracer;
-import codechicken.lib.util.ItemUtils;
 import com.cr3eperall.avaritiaalpha.AvaritiaAlpha;
 import com.cr3eperall.avaritiaalpha.config.Config;
 import com.cr3eperall.avaritiaalpha.items.InfinityArmor;
@@ -15,15 +13,11 @@ import com.cr3eperall.avaritiaalpha.util.ToolHelper;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
-import net.minecraft.block.WitherSkeletonSkullBlock;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.entity.monster.AbstractSkeletonEntity;
-import net.minecraft.entity.monster.SkeletonEntity;
-import net.minecraft.entity.monster.StrayEntity;
-import net.minecraft.entity.monster.WitherSkeletonEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.BlockItem;
@@ -32,14 +26,10 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.util.Hand;
 import net.minecraft.util.SoundCategory;
-import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.RayTraceContext;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
-import net.minecraft.world.server.ServerWorld;
-import net.minecraft.world.storage.loot.LootContext;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.event.TickEvent;
@@ -198,7 +188,7 @@ public class AvaritiaAlphaEventHandler {
         }
         ItemStack mainHand = event.getHarvester().getHeldItem(Hand.MAIN_HAND);
 
-        if (!mainHand.isEmpty() && mainHand.getItem() == ModItems.infinity_pickaxe) {
+        if (!mainHand.isEmpty() && mainHand.getItem() == ModItems.INFINITYPICKAXE) {
             applyLuck(event, 4);
         }
     }
@@ -235,7 +225,7 @@ public class AvaritiaAlphaEventHandler {
             return;
         }
         PlayerEntity player = (PlayerEntity) event.getEntityLiving();
-        if (!player.getHeldItemMainhand().isEmpty() && player.getHeldItemMainhand().getItem() == ModItems.infinity_sword && player.isHandActive()) {//TODO Blocking? Maybe add a shield? --- maybe not
+        if (!player.getHeldItemMainhand().isEmpty() && player.getHeldItemMainhand().getItem() == ModItems.INFINITYSWORD && player.isHandActive()) {//TODO Blocking? Maybe add a shield? --- maybe not
             event.setCanceled(true);
         }
         if (isInfinite(player) && !event.getSource().damageType.equals("infinity")) {
@@ -271,7 +261,7 @@ public class AvaritiaAlphaEventHandler {
     public static void diggity(PlayerEvent.BreakSpeed event) {
         if (!event.getEntityLiving().getHeldItem(Hand.MAIN_HAND).isEmpty()) {
             ItemStack held = event.getEntityLiving().getHeldItem(Hand.MAIN_HAND);
-            if (held.getItem() == ModItems.infinity_pickaxe || held.getItem() == ModItems.infinity_shovel) {
+            if (held.getItem() == ModItems.INFINITYPICKAXE || held.getItem() == ModItems.INFINITYSHOVEL) {
                 if (!event.getEntityLiving().onGround) {
                     event.setNewSpeed(event.getNewSpeed() * 5);
                 }
@@ -291,7 +281,7 @@ public class AvaritiaAlphaEventHandler {
     public static void canHarvest(PlayerEvent.HarvestCheck event) {//TODO check
         if (!event.getEntityLiving().getHeldItem(Hand.MAIN_HAND).isEmpty()) {
             ItemStack held = event.getEntityLiving().getHeldItem(Hand.MAIN_HAND);
-            if (held.getItem() == ModItems.infinity_shovel && event.getTargetBlock().getMaterial() == Material.ROCK) {
+            if (held.getItem() == ModItems.INFINITYSHOVEL && event.getTargetBlock().getMaterial() == Material.ROCK) {
                 if (held.getTag() != null && held.getTag().getBoolean("destroyer") && isGarbageBlock(event.getTargetBlock().getBlock())) {
                     event.setResult(Event.Result.ALLOW);
                 }

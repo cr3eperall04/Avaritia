@@ -21,4 +21,7 @@ public class ModBlocks {
 
     @ObjectHolder("avaritiaalpha:neutronium_block")
     public static NeutroniumBlock NEUTRONIUMBLOCK;
+
+    @ObjectHolder("avaritiaalpha:infinity_block")
+    public static InfinityBlock INFINITYBLOCK;
 }
