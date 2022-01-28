@@ -15,6 +15,7 @@ import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.util.math.EntityRayTraceResult;
 import net.minecraft.util.math.RayTraceResult;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.network.NetworkHooks;
 
@@ -43,9 +44,9 @@ public class EndestPearlEntity extends ThrowableEntity implements IRendersAsItem
 
             entity.attackEntityFrom(DamageSource.causeThrownDamage(this, getThrower()), 0.0F);
         }
-
+        Vec3d vec=getPositionVec();
         for (int i = 0; i < 100; ++i) {
-            world.addParticle(ParticleTypes.PORTAL, posX, posY, posZ, rand.nextGaussian() * 3, rand.nextGaussian() * 3, rand.nextGaussian() * 3);
+            world.addParticle(ParticleTypes.PORTAL, vec.x, vec.y, vec.z, rand.nextGaussian() * 3, rand.nextGaussian() * 3, rand.nextGaussian() * 3);
         }
 
         if (!world.isRemote) {
@@ -57,7 +58,7 @@ public class EndestPearlEntity extends ThrowableEntity implements IRendersAsItem
                 if (blockpos.getFace() != null) {
                     offset = new Vector3(dir.getXOffset(), dir.getYOffset(), dir.getZOffset());
                 }
-                ent.setLocationAndAngles(posX + offset.x * 0.25, posY + offset.y * 0.25, posZ + offset.z * 0.25, rotationYaw, 0.0F);
+                ent.setLocationAndAngles(vec.x + offset.x * 0.25, vec.y + offset.y * 0.25, vec.z + offset.z * 0.25, rotationYaw, 0.0F);
                 world.addEntity(ent);
             }
 

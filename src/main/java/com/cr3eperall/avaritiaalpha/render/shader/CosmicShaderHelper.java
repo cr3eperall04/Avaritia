@@ -75,7 +75,7 @@ public class CosmicShaderHelper {
             setLightLevel(1.0f);
             return;
         }
-        int coord = world.getCombinedLight(pos, 0);
+        int coord = world.getLight(pos);
 
         DynamicTexture t=new DynamicTexture(16, 16, false);
         t.updateDynamicTexture();

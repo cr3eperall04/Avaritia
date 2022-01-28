@@ -308,7 +308,7 @@ public class AvaritiaAlphaEventHandler {
     }
 
     private static void addDrop(LivingDropsEvent event, ItemStack drop) {
-        ItemEntity itemEntity = new ItemEntity(event.getEntityLiving().world, event.getEntityLiving().posX, event.getEntityLiving().posY, event.getEntityLiving().posZ, drop);
+        ItemEntity itemEntity = new ItemEntity(event.getEntityLiving().world, event.getEntityLiving().getPosX(), event.getEntityLiving().getPosY(), event.getEntityLiving().getPosZ(), drop);
         itemEntity.setDefaultPickupDelay();
         event.getDrops().add(itemEntity);
     }

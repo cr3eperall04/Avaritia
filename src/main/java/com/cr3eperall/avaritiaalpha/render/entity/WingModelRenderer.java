@@ -1,4 +1,4 @@
-package com.cr3eperall.avaritiaalpha.render.entity;
+/*package com.cr3eperall.avaritiaalpha.render.entity;
 
 import com.mojang.blaze3d.platform.GlStateManager;
 import net.minecraft.client.renderer.entity.model.RendererModel;
@@ -31,4 +31,4 @@ public class WingModelRenderer extends RendererModel {
             //GlStateManager.disableCull();
         }
     }
-}
+}*/

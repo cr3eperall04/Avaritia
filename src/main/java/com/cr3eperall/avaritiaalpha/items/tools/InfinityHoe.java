@@ -76,7 +76,7 @@ public class InfinityHoe extends HoeItem {
 
             if (!world.isAirBlock(aoePos.up()) && canRemoveAbove && up2airOrReplaceable) {
                 if (!world.isRemote && canDropAbove) {
-                    world.addEntity(new ItemEntity(world, player.posX, player.posY, player.posZ, new ItemStack(Blocks.DIRT)));
+                    world.addEntity(new ItemEntity(world, player.getPosX(), player.getPosY(), player.getPosZ(), new ItemStack(Blocks.DIRT)));
                 }
                 world.destroyBlock(aoePos.up(),false);
             }

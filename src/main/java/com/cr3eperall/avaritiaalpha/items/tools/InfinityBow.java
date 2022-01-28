@@ -53,7 +53,7 @@ public class InfinityBow extends BowItem {
 
         HeavenArrowEntity arrow = new HeavenArrowEntity(ModEntities.heavenArrowEntityEntityType, world);
         arrow.setShooter(player);
-        arrow.setPosition(player.posX, player.posY + (double)player.getEyeHeight() - (double)0.1F, player.posZ);
+        arrow.setPosition(player.getPosX(), player.getPosY() + (double)player.getEyeHeight() - (double)0.1F, player.getPosZ());
         arrow.shoot(player, player.rotationPitch, player.rotationYaw, 0, f * 3.0F, 1.0F);//TODO, no inaccuracy?
         arrow.setDamage(20.0);
 
@@ -78,7 +78,7 @@ public class InfinityBow extends BowItem {
         }
 
         //stack.damageItem(1, player);
-        world.playSound(null, player.posX, player.posY, player.posZ, SoundEvents.ENTITY_ARROW_SHOOT, SoundCategory.NEUTRAL, 1.0F,  (1.0F / ((float)Math.random() * 0.4F + 1.2F) + f * 0.5F));
+        world.playSound(null, player.getPosX(), player.getPosY(), player.getPosZ(), SoundEvents.ENTITY_ARROW_SHOOT, SoundCategory.NEUTRAL, 1.0F,  (1.0F / ((float)Math.random() * 0.4F + 1.2F) + f * 0.5F));
 
         arrow.pickupStatus = AbstractArrowEntity.PickupStatus.CREATIVE_ONLY;
 

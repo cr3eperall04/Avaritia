@@ -26,10 +26,10 @@ public class ClientProxy implements IProxy{
     @Override
     public void init() {
         ScreenManager.registerFactory(ModBlocks.NEUTRONCOLLECTOR_CONTAINER, NeutronCollectorScreen::new);
-        RenderingRegistry.registerEntityRenderingHandler(HeavenArrowEntity.class, HeavenArrowRenderer::new);
-        RenderingRegistry.registerEntityRenderingHandler(HeavenSubArrowEntity.class, HeavenArrowRenderer::new);
-        RenderingRegistry.registerEntityRenderingHandler(GapingVoidEntity.class, GapingVoidRenderer::new);
-        RenderingRegistry.registerEntityRenderingHandler(EndestPearlEntity.class,manager -> new SpriteRenderer<>(manager, Minecraft.getInstance().getItemRenderer()));
+        RenderingRegistry.registerEntityRenderingHandler(ModEntities.heavenArrowEntityEntityType, HeavenArrowRenderer::new);
+        RenderingRegistry.registerEntityRenderingHandler(ModEntities.heavenSubArrowEntityEntityType, HeavenArrowRenderer::new);
+        RenderingRegistry.registerEntityRenderingHandler(ModEntities.gapingVoidEntityEntityType, GapingVoidRenderer::new);
+        RenderingRegistry.registerEntityRenderingHandler(ModEntities.endestPearlEntityEntityType,manager -> new SpriteRenderer<>(manager, Minecraft.getInstance().getItemRenderer()));
     }
 
     public void preinit(){

@@ -15,7 +15,7 @@ import net.minecraft.world.World;
 
 public class ImmortalItemEntity extends ItemEntity {
     public ImmortalItemEntity(World world, Entity original, ItemStack stack) {
-        this(world,original.posX,original.posY,original.posZ,stack);
+        this(world,original.getPosX(),original.getPosY(),original.getPosZ(),stack);
         setPickupDelay(20);
         setMotion(original.getMotion());
         setItem(stack);

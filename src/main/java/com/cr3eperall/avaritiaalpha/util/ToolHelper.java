@@ -86,7 +86,7 @@ public class ToolHelper {
     public static void removeBlockWithOPDrop(PlayerEntity player, ItemStack stack, World world, BlockPos pos){
         BlockState state = world.getBlockState(pos);
         Block block = state.getBlock();
-        List<ItemStack> drops=block.getDrops(state, new LootContext.Builder(world.getServer().func_71218_a(player.dimension)).withParameter(LootParameters.POSITION,pos).withParameter(LootParameters.TOOL,stack));
+        List<ItemStack> drops=block.getDrops(state, new LootContext.Builder(world.getServer().getWorld(player.dimension)).withParameter(LootParameters.POSITION,pos).withParameter(LootParameters.TOOL,stack));
         if (drops.isEmpty() || drops.get(0).isEmpty()) {
             ItemStack drop =block.getPickBlock(state, RayTracer.retrace(player,10, RayTraceContext.BlockMode.COLLIDER, RayTraceContext.FluidMode.NONE), world, pos, player);
             if (drop.isEmpty()) {

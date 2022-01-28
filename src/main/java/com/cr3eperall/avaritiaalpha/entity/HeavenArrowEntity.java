@@ -6,6 +6,7 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.projectile.ArrowEntity;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.IPacket;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.network.NetworkHooks;
 
@@ -69,13 +70,15 @@ public class HeavenArrowEntity extends ArrowEntity {
 
     public void barrage() {//TODO, this logic may be borked.
         Random randy = getEntityWorld().rand;
+        Vec3d vec=getPositionVec();
         for (int i = 0; i < 10; i++) {
+
             double angle = randy.nextDouble() * 2 * Math.PI;
             double dist = randy.nextGaussian() * 0.5;
 
-            double x = Math.sin(angle) * dist + posX;
-            double z = Math.cos(angle) * dist + posZ;
-            double y = posY + 25.0;
+            double x = Math.sin(angle) * dist + vec.x;
+            double z = Math.cos(angle) * dist + vec.y;
+            double y = vec.z + 25.0;
 
             double dangle = randy.nextDouble() * 2 * Math.PI;
             double ddist = randy.nextDouble() * 0.35;

@@ -82,7 +82,7 @@ public class AvaritiaAlphaTextures {
             System.err.println(map.getMap().getSprite(res));
         }
         
-        sprit=map.getMap().getAtlasSprite(sprite);
+        sprit=map.getMap().getSprite(res);
 
         return sprit;
     }

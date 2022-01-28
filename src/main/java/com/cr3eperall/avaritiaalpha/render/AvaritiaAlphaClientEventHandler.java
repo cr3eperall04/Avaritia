@@ -2,9 +2,9 @@ package com.cr3eperall.avaritiaalpha.render;
 
 import codechicken.lib.texture.TextureUtils;
 import com.cr3eperall.avaritiaalpha.AvaritiaAlpha;
-import com.cr3eperall.avaritiaalpha.render.entity.InfinityArmorModel;
 import com.cr3eperall.avaritiaalpha.render.shader.CosmicShaderHelper;
 import com.cr3eperall.avaritiaalpha.setup.AvaritiaAlphaTextures;
+import net.minecraft.client.renderer.texture.AtlasTexture;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraftforge.client.event.GuiScreenEvent;
 import net.minecraftforge.client.event.TextureStitchEvent;
@@ -24,7 +24,7 @@ public class AvaritiaAlphaClientEventHandler {
 
 
     public static void textureStichPre(TextureStitchEvent.Pre event) {
-        if (!event.getMap().getBasePath().equals("textures")){
+        if (!event.getMap().getTextureLocation().equals(AtlasTexture.LOCATION_BLOCKS_TEXTURE)){
             return;
         }
         System.out.println("---fcv-dfsfv-adfbv-zd");
@@ -33,17 +33,18 @@ public class AvaritiaAlphaClientEventHandler {
 
     @SubscribeEvent
     public static void textureStichPost(TextureStitchEvent.Post event) {
-        TextureUtils.bindBlockTexture();
+        /*TextureUtils.bindBlockTexture();
         InfinityArmorModel.itempagewidth = GL11.glGetTexLevelParameteri(GL11.GL_TEXTURE_2D, 0, GL11.GL_TEXTURE_WIDTH);
         InfinityArmorModel.itempageheight = GL11.glGetTexLevelParameteri(GL11.GL_TEXTURE_2D, 0, GL11.GL_TEXTURE_HEIGHT);
 
         InfinityArmorModel.armorModel.rebuildOverlay();
         InfinityArmorModel.legModel.rebuildOverlay();
+         */
     }
 
     @SubscribeEvent
     public static void onRenderTick(TickEvent.RenderTickEvent event) {
-        if (event.phase == TickEvent.Phase.START) {
+        /*if (event.phase == TickEvent.Phase.START) {
             cosmicUVs = BufferUtils.createFloatBuffer(4 * AvaritiaAlphaTextures.COSMIC.length);
             TextureAtlasSprite icon;
             for (TextureAtlasSprite cosmicIcon : AvaritiaAlphaTextures.COSMIC) {
@@ -55,7 +56,7 @@ public class AvaritiaAlphaClientEventHandler {
                 cosmicUVs.put(icon.getMaxV());
             }
             cosmicUVs.flip();
-        }
+        }*/
     }
 
     @SubscribeEvent

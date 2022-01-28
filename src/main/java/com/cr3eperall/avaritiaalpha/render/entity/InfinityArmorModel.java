@@ -1,4 +1,4 @@
-package com.cr3eperall.avaritiaalpha.render.entity;
+/*package com.cr3eperall.avaritiaalpha.render.entity;
 
 import codechicken.lib.math.MathHelper;
 import codechicken.lib.texture.TextureUtils;
@@ -519,4 +519,4 @@ public class InfinityArmorModel extends BipedModel<LivingEntity> {
             }
         }
     }
-}
+}*/

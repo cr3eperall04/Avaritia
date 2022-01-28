@@ -6,9 +6,12 @@ import codechicken.lib.render.CCRenderState;
 import codechicken.lib.render.OBJParser;
 import codechicken.lib.texture.TextureUtils;
 import com.cr3eperall.avaritiaalpha.entity.GapingVoidEntity;
+import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.platform.GlStateManager;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.BufferBuilder;
+import net.minecraft.client.renderer.IRenderTypeBuffer;
+import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.entity.EntityRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererManager;
@@ -25,30 +28,32 @@ public class GapingVoidRenderer extends EntityRenderer<GapingVoidEntity> {
     private ResourceLocation halo = new ResourceLocation("avaritiaalpha", "textures/entity/voidhalo.png");
 
     private CCModel model;
-
+/*
     public Field renderPosX;
     public Field renderPosY;
     public Field renderPosZ;
+ */
 
 
     public GapingVoidRenderer(EntityRendererManager manager) {
         super(manager);
+        /*
         renderPosX=ObfuscationReflectionHelper.findField(EntityRendererManager.class,"field_78725_b");
         renderPosY=ObfuscationReflectionHelper.findField(EntityRendererManager.class,"field_78726_c");
         renderPosZ=ObfuscationReflectionHelper.findField(EntityRendererManager.class,"field_78723_d");
+         */
         model = OBJParser.parseModels(new ResourceLocation("avaritiaalpha", "models/hemisphere.obj")).get("model");
     }
 
     @Override
-    public void doRender(GapingVoidEntity ent, double x, double y, double z, float entityYaw, float partialTicks) {
-
+    public void render(GapingVoidEntity entity, float entityYaw, float partialTicks, MatrixStack matrixIn, IRenderTypeBuffer bufferIn, int packedLight) {
         Minecraft mc = Minecraft.getInstance();
         Tessellator tess = Tessellator.getInstance();
         BufferBuilder buffer = tess.getBuffer();
         CCRenderState ccrs = CCRenderState.instance();
         TextureUtils.changeTexture(halo);
 
-        double age = ent.getAge() + partialTicks;
+        double age = entity.getAge() + partialTicks;
 
         setColour(age, 1.0);
 
@@ -60,18 +65,16 @@ public class GapingVoidRenderer extends EntityRenderer<GapingVoidEntity> {
         double halocoord = 0.58 * scale;
         double haloscaledist = 2.2 * scale;
 
-        double dx = ent.posX;
-        double dy = ent.posY;
-        double dz = ent.posZ;
-        try {
-            dx = ent.posX - renderPosX.getDouble(renderManager);
-            dy = ent.posY - renderPosY.getDouble(renderManager);
-            dz = ent.posZ - renderPosZ.getDouble(renderManager);
+        double dx = entity.getPosX();
+        double dy = entity.getPosY();
+        double dz = entity.getPosZ();
+        /*try {
+            dx -= renderPosX.getDouble(renderManager);
+            dy -= renderPosY.getDouble(renderManager);
+            dz -= renderPosZ.getDouble(renderManager);
         } catch (IllegalAccessException e) {
             e.printStackTrace();
-        }
-
-
+        }*/
 
         double xzlen = Math.sqrt(dx * dx + dz * dz);
         double len = Math.sqrt(dx * dx + dy * dy + dz * dz);
@@ -88,11 +91,11 @@ public class GapingVoidRenderer extends EntityRenderer<GapingVoidEntity> {
         //Lumberjack.info("x: "+x+", y: "+y+", z: "+z);
 
         GlStateManager.disableLighting();
-        mc.gameRenderer.disableLightmap();
+        //mc.gameRenderer.disableLightmap();
 
         GlStateManager.pushMatrix();
         {
-            GlStateManager.translated(x, y, z);
+            GlStateManager.translated(dx-Minecraft.getInstance().player.getPosX(), dy-Minecraft.getInstance().player.getPosY(), dz-Minecraft.getInstance().player.getPosZ());
 
             GlStateManager.rotatef((float) xang, 0, 1, 0);
             GlStateManager.rotatef((float) (yang + 90), 1, 0, 0);
@@ -106,10 +109,10 @@ public class GapingVoidRenderer extends EntityRenderer<GapingVoidEntity> {
                 GlStateManager.depthMask(false);
 
                 buffer.begin(0x07, DefaultVertexFormats.POSITION_TEX);
-                buffer.pos(-halocoord, 0.0, -halocoord).tex(0.0, 0.0).endVertex();
-                buffer.pos(-halocoord, 0.0, halocoord).tex(0.0, 1.0).endVertex();
-                buffer.pos(halocoord, 0.0, halocoord).tex(1.0, 1.0).endVertex();
-                buffer.pos(halocoord, 0.0, -halocoord).tex(1.0, 0.0).endVertex();
+                buffer.pos(-halocoord, 0.0, -halocoord).tex(0.0F, 0.0F).endVertex();
+                buffer.pos(-halocoord, 0.0, halocoord).tex(0.0F, 1.0F).endVertex();
+                buffer.pos(halocoord, 0.0, halocoord).tex(1.0F, 1.0F).endVertex();
+                buffer.pos(halocoord, 0.0, -halocoord).tex(1.0F, 0.0F).endVertex();
                 tess.draw();
 
                 GlStateManager.depthMask(true);
@@ -123,7 +126,7 @@ public class GapingVoidRenderer extends EntityRenderer<GapingVoidEntity> {
             GlStateManager.scaled(scale, scale, scale);
 
             GlStateManager.disableCull();
-            ccrs.startDrawing(0x07, DefaultVertexFormats.POSITION_TEX_NORMAL);
+            ccrs.startDrawing(0x07, DefaultVertexFormats.POSITION_TEX);
             model.render(ccrs);
             ccrs.draw();
             GlStateManager.enableCull();
@@ -143,16 +146,16 @@ public class GapingVoidRenderer extends EntityRenderer<GapingVoidEntity> {
                 GlStateManager.disableAlphaTest();
                 GlStateManager.enableBlend();
 
-                GlStateManager.rotatef(180.0F - renderManager.playerViewY, 0.0F, 1.0F, 0.0F);
-                GlStateManager.rotatef(-renderManager.playerViewX, 1.0F, 0.0F, 0.0F);
+                //GlStateManager.rotatef((float) (180.0F - dy), 0.0F, 1.0F, 0.0F);
+                //GlStateManager.rotatef((float) -dx, 1.0F, 0.0F, 0.0F);
 
                 double d = 0;
 
                 buffer.begin(0x07, DefaultVertexFormats.POSITION_TEX);
-                buffer.pos(-100, 100, d).tex(0.0, 0.0).endVertex();
-                buffer.pos(-100, -100, d).tex(0.0, 1.0).endVertex();
-                buffer.pos(100, -100, d).tex(1.0, 1.0).endVertex();
-                buffer.pos(100, 100, d).tex(1.0, 0.0).endVertex();
+                buffer.pos(-100, 100, d).tex(0.0F, 0.0F).endVertex();
+                buffer.pos(-100, -100, d).tex(0.0F, 1.0F).endVertex();
+                buffer.pos(100, -100, d).tex(1.0F, 1.0F).endVertex();
+                buffer.pos(100, 100, d).tex(1.0F, 0.0F).endVertex();
                 tess.draw();
 
                 GlStateManager.disableBlend();
@@ -161,14 +164,14 @@ public class GapingVoidRenderer extends EntityRenderer<GapingVoidEntity> {
             GlStateManager.popMatrix();
         }
 
-        mc.gameRenderer.enableLightmap();
+        //mc.gameRenderer.enableLightmap();
         GlStateManager.enableLighting();
 
         GlStateManager.color4f(1, 1, 1, 1);
     }
 
     @Override
-    protected ResourceLocation getEntityTexture(GapingVoidEntity ent) {
+    public ResourceLocation getEntityTexture(GapingVoidEntity ent) {
         return fill;
     }
 

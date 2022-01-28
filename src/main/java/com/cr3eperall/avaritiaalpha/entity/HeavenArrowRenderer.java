@@ -18,7 +18,7 @@ public class HeavenArrowRenderer extends ArrowRenderer<AbstractArrowEntity> {
 
     @Nullable
     @Override
-    protected ResourceLocation getEntityTexture(AbstractArrowEntity entity) {
+    public ResourceLocation getEntityTexture(AbstractArrowEntity entity) {
         return tex;
     }
 }

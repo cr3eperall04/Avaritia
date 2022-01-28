@@ -18,6 +18,7 @@ import net.minecraft.util.DamageSource;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.Explosion;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
@@ -100,13 +101,13 @@ public class GapingVoidEntity extends Entity {
 
         // tick, tock
         int age = getAge();
-
+        Vec3d vec=getPositionVec();
         if (age >= maxLifetime) {
-            ex=world.createExplosion(this, posX, posY, posZ, 6.0f, Explosion.Mode.BREAK);
+            ex=world.createExplosion(this, vec.x, vec.y, vec.z, 6.0f, Explosion.Mode.BREAK);
             remove();
         } else {
             if (age == 0) {
-                world.playSound(posX, posY, posZ, SoundEvents.ENTITY_ENDERMAN_STARE, SoundCategory.HOSTILE, 8.0F, 1.0F, true);
+                world.playSound(vec.x, vec.y, vec.z, SoundEvents.ENTITY_ENDERMAN_STARE, SoundCategory.HOSTILE, 8.0F, 1.0F, true);
             }
             setAge(age + 1);
         }
@@ -147,9 +148,10 @@ public class GapingVoidEntity extends Entity {
 
         for (Entity suckee : sucked) {
             if (suckee != this) {
-                double dx = posX - suckee.posX;
-                double dy = posY - suckee.posY;
-                double dz = posZ - suckee.posZ;
+                Vec3d dvec=vec.subtract(suckee.getPositionVec());
+                double dx = dvec.x;
+                double dy = dvec.y;
+                double dz = dvec.z;
 
                 double lensquared = dx * dx + dy * dy + dz * dz;
                 double len = Math.sqrt(lensquared);

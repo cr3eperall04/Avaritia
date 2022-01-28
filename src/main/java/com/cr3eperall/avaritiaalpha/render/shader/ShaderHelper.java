@@ -55,7 +55,8 @@ public class ShaderHelper {
     }
 
     public static boolean useShaders() {
-        return GLX.usePostProcess;
+        //return GLX.usePostProcess;
+        return true;
     }
 
     // Most of the code taken from the LWJGL wiki

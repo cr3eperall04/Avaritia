@@ -2,7 +2,6 @@ package com.cr3eperall.avaritiaalpha.items;
 
 import com.cr3eperall.avaritiaalpha.AvaritiaAlpha;
 import com.cr3eperall.avaritiaalpha.items.tools.InfinityMaterial;
-import com.cr3eperall.avaritiaalpha.render.entity.InfinityArmorModel;
 import com.cr3eperall.avaritiaalpha.util.TextUtils;
 import com.google.common.collect.Collections2;
 import com.google.common.collect.Lists;
@@ -126,10 +125,11 @@ public class InfinityArmor extends ArmorItem {
     @Nullable
     @Override
     public <A extends BipedModel<?>> A getArmorModel(LivingEntity entityLiving, ItemStack itemStack, EquipmentSlotType armorSlot, A _default) {
-        InfinityArmorModel model = armorSlot == EquipmentSlotType.LEGS ? InfinityArmorModel.legModel : InfinityArmorModel.armorModel;
+        /*InfinityArmorModel model = armorSlot == EquipmentSlotType.LEGS ? InfinityArmorModel.legModel : InfinityArmorModel.armorModel;
 
         model.update(entityLiving, itemStack, armorSlot);
-        return (A)model;
+        return (A)model;*/
+        return null;
     }
 
     @Override
